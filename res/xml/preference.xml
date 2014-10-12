@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/pref_serverport_section_title">
+		<EditTextPreference  
+			android:dialogTitle="@string/pref_serverport_title"
+            android:dialogMessage="@string/pref_serverport_message"
+            android:key="prefServerPort"
+            android:title="@string/pref_serverport_title"
+            android:summary="@string/pref_serverport_summary"
+            android:defaultValue="8080"
+            android:inputType="number"/>  
+	</PreferenceCategory>
+	
+</PreferenceScreen>

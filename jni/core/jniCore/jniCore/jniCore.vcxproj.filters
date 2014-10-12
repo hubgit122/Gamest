@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\core">
+      <UniqueIdentifier>{8295fc1f-995c-43f9-9253-f88d0b1e371a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\libjson">
+      <UniqueIdentifier>{c32c1bfd-6ab5-4f79-ba44-344bb2a17018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core">
+      <UniqueIdentifier>{3eee4cc9-9fa2-4b63-87c4-c419415e1fd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\json">
+      <UniqueIdentifier>{9ad9abdb-24a4-48ab-a7fa-e18aba1a3aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\chess">
+      <UniqueIdentifier>{039d7138-bd40-4da4-ae67-883469979e24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\core\utils">
+      <UniqueIdentifier>{ceae79a3-c414-4aea-873a-9b4653b903ba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\GameHead.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GraphSearchEngine.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\IntellegenceEngine.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Motion.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MotionGenerator.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Player.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\libjson\libjson.h">
+      <Filter>头文件\libjson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Game.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GameManager.h">
+      <Filter>头文件\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ChessBoard.h">
+      <Filter>头文件\core\chess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ChessGame.h">
+      <Filter>头文件\core\chess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ChessGameConfig.h">
+      <Filter>头文件\core\chess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Chessman.h">
+      <Filter>头文件\core\chess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ChessmanIndex.h">
+      <Filter>头文件\core\chess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ChessmanIndexBoard.h">
+      <Filter>头文件\core\chess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Array.h">
+      <Filter>头文件\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Object.h">
+      <Filter>头文件\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Stack.h">
+      <Filter>头文件\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\types.h">
+      <Filter>头文件\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utilities.h">
+      <Filter>头文件\core\utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\ChessBoard.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ChessGame.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Chessman.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ChessmanIndex.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ChessmanIndexBoard.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Game.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GraphSearchEngine.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GUI.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\IntellegenceEngine.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Motion.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MotionGenerator.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Player.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\utilities.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONIterators.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONMemory.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONNode.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONNode_Mutex.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONPreparse.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONStream.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONValidator.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONWorker.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONWriter.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\libjson.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\internalJSONNode.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONAllocator.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONChildren.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONDebug.cpp">
+      <Filter>源文件\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ChessGameConfig.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

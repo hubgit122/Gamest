@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B26F0988-8050-4659-B847-E8A37FC0120D}</ProjectGuid>
+    <RootNamespace>jniCore</RootNamespace>
+    <ProjectName>jni</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\libjson\libjson.h" />
+    <ClInclude Include="..\..\Array.h" />
+    <ClInclude Include="..\..\ChessBoard.h" />
+    <ClInclude Include="..\..\ChessGame.h" />
+    <ClInclude Include="..\..\Chessman.h" />
+    <ClInclude Include="..\..\ChessmanIndex.h" />
+    <ClInclude Include="..\..\ChessmanIndexBoard.h" />
+    <ClInclude Include="..\..\Game.h" />
+    <ClInclude Include="..\..\GameManager.h" />
+    <ClInclude Include="..\..\Object.h" />
+    <ClInclude Include="..\..\ChessGameConfig.h" />
+    <ClInclude Include="..\..\GameHead.h" />
+    <ClInclude Include="..\..\GraphSearchEngine.h" />
+    <ClInclude Include="..\..\IntellegenceEngine.h" />
+    <ClInclude Include="..\..\Motion.h" />
+    <ClInclude Include="..\..\MotionGenerator.h" />
+    <ClInclude Include="..\..\Player.h" />
+    <ClInclude Include="..\..\Stack.h" />
+    <ClInclude Include="..\..\types.h" />
+    <ClInclude Include="..\..\utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\libjson\_internal\Source\internalJSONNode.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONAllocator.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONChildren.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONDebug.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONIterators.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONMemory.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONNode.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONNode_Mutex.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONPreparse.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONStream.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONValidator.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONWorker.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\JSONWriter.cpp" />
+    <ClCompile Include="..\..\..\libjson\_internal\Source\libjson.cpp" />
+    <ClCompile Include="..\..\ChessBoard.cpp" />
+    <ClCompile Include="..\..\ChessGame.cpp" />
+    <ClCompile Include="..\..\Chessman.cpp" />
+    <ClCompile Include="..\..\ChessmanIndex.cpp" />
+    <ClCompile Include="..\..\ChessmanIndexBoard.cpp" />
+    <ClCompile Include="..\..\ChessGameConfig.cpp" />
+    <ClCompile Include="..\..\Game.cpp" />
+    <ClCompile Include="..\..\GameManager.cpp" />
+    <ClCompile Include="..\..\GraphSearchEngine.cpp" />
+    <ClCompile Include="..\..\GUI.cpp" />
+    <ClCompile Include="..\..\IntellegenceEngine.cpp" />
+    <ClCompile Include="..\..\Motion.cpp" />
+    <ClCompile Include="..\..\MotionGenerator.cpp" />
+    <ClCompile Include="..\..\Player.cpp" />
+    <ClCompile Include="..\..\utilities.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

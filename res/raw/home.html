@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <title>CAWS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+	<link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="../../assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body onload="startChatUpdate(); focusOn(CHAT_WRITER)">
+<div class="container-fluid">
+	<div class="page-header">
+		<h3>CAWS <small>Chat on Android Web Server</small> </h3>
+	</div>
+	
+	<p></p>
+
+	<textarea class="field span3" id="msgViewer" rows="6" readonly="readonly" style="resize:none"></textarea>
+	<p></p>
+
+
+	<div class="controls controls-row">
+		<input class="span2" type="text" id="msgToSend" placeholder="msg" maxlength="200" onkeydown="if (event.keyCode == 13){sendNewMessage()};"></input>
+		<button class="btn btn-primary span1" type="button" onclick="sendNewMessage()">Send</button>
+	</div>
+
+
+	<p></p>
+	<p>
+		<div class="input-prepend">
+			<span class="add-on">as</span>
+			<input class="span1" id="author" type="text" placeholder="name" onkeydown="if (event.keyCode == 13) {focusOn(CHAT_WRITER)};" maxlength="7">
+		</div>
+	</p>
+</div>
+<!-- <textarea id="msgToSend" rows="1" maxlength="200" style="resize:none"></textarea> -->
+<script type="text/javascript">
+<!-- 
+CHAT_VIEWER = "msgViewer"
+CHAT_WRITER = "msgToSend"
+CHAT_AUTHOR = "author"
+
+function getXMLHttpRequest() {
+	var xhr = null;
+
+	if (window.XMLHttpRequest || window.ActiveXObject) {
+		if (window.ActiveXObject) {
+			try {
+				xhr = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		} else {
+			xhr = new XMLHttpRequest(); 
+		}
+	} else {
+		alert("Your browser doesn't support the XMLHTTPRequest object...");
+		return null;
+	}
+	return xhr;
+}
+
+// Send a POST request whose URI is "uri" and body contains "messageToSend". 
+//The result of the request is proceed by the "callback" function
+function request(callback, uri, messageToSend) {
+	var xhr = getXMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			if(callback != null)			
+				callback(xhr.responseText);
+		}
+	};
+	xhr.open("POST", uri, true);
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send(JSON.stringify(messageToSend));
+}
+
+function newChatMessageCommand() {
+	var msg = document.getElementById(CHAT_WRITER).value;
+	document.getElementById(CHAT_WRITER).value = "";
+	return { message:msg, command:"newMessage", 
+					author:document.getElementById(CHAT_AUTHOR).value }
+}
+
+function sendNewMessage(){
+	if (document.getElementById(CHAT_WRITER).value != "")
+		request(null,'chat',newChatMessageCommand());
+}
+
+function waitingChatUpdateCommand( _lastMsgId){
+	return { command:"waitingUpdate", lastMsgId:_lastMsgId }
+}
+
+// loop to update the chat viewer
+function updateChatViewer(oData) {
+	var parsedData = JSON.parse(oData);
+	document.getElementById(CHAT_VIEWER).value += parsedData.updateContent;
+	document.getElementById(CHAT_VIEWER).scrollTop = 99999;
+	request(updateChatViewer,"chat",waitingChatUpdateCommand(parsedData.msgId));
+}
+
+function startChatUpdate(){
+		request(updateChatViewer,"chat",waitingChatUpdateCommand(-1));
+}
+
+function focusOn(id){
+	document.getElementById(id).focus();
+}
+
+function enterPressed(event){
+	return (event.keyCode == 13);
+}
+//-->
+</script>
+<!-- 	<script src="../assets/js/bootstrap.js"></script> -->
+</body>
+</html>
