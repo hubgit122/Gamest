@@ -39,24 +39,6 @@ namespace CIG
                 INI_BOARD_WIDTH_LOG2 = 4;
                 INI_BOARD_HEIGHT_LOG2 = 4;
 
-                roundChessman = true;     // TO-DO
-                namedChessman = false;
-
-                markCrossByCircle = true; // TO-DO
-                markCircleRadias = 1;// TO-DO
-
-                additionalPointRadias = 3;       // TO-DO
-
-                drawLineWhenDrawDot = true;       // TO-DO
-
-                thetaOfXTop = 0;     // TO-DO
-                thetaOfXY = 90;
-
-                lengthOfLattticeX = 40;          // TO-DO
-                lengthOfLattticeY = lengthOfLattticeX;
-                borderWidth = lengthOfLattticeX;
-                latticePenWidth = 2;
-
                 OPERATIONS operationGraph[END][END + 1] =
                 {
                     { NOMORE, NOMORE, NOMORE, NOMORE, NOMORE },
@@ -137,6 +119,40 @@ namespace CIG
                 this->INI_BOARD = (CHESSMAN_TYPES ** *)memoryAlloc(sizeof(CHESSMAN_TYPES) * (PLAYER_NUMS[GOBANG]) * (1 << INI_BOARD_HEIGHT_LOG2) * (1 << INI_BOARD_HEIGHT_LOG2));
                 memcpy(this->INI_BOARD, INI_BOARD, sizeof(INI_BOARD));
 
+
+                thetaOfXTop = 0;
+                thetaOfXY = 90;
+
+                lengthOfLattticeX = 40;
+                lengthOfLattticeY = lengthOfLattticeX;
+                borderWidth = lengthOfLattticeX;
+                latticePenWidth = 2;
+
+                markCrossByCircle = true;
+                markCircleRadias = 1;
+                drawLineWhenDrawDot = true;
+
+                roundChessman = true;
+                namedChessman = false;
+                chessmanRect = PointOrVector_Float(0.9 * lengthOfLattticeX, 0.9 * lengthOfLattticeY);
+                chessmanNames.insert(pair<CHESSMAN_TYPES, string>(CHESS, " "));
+
+                LINE_DIRECTION.clear();
+                LINE_DIRECTION.push_back(PointOrVector(1, 0));
+                LINE_DIRECTION.push_back(PointOrVector(0, 1));
+
+                addtionalLines.clear();
+
+                additionalCircles.clear();
+                additionalCircles.push_back(PointOrVector(7, 7));         // 天元
+                additionalCircles.push_back(PointOrVector(3, 3));         // 星位
+                additionalCircles.push_back(PointOrVector(3, 11));
+                additionalCircles.push_back(PointOrVector(11, 11));
+                additionalCircles.push_back(PointOrVector(11, 3));
+                additionalCircleRadias = 3;
+
+                addtionalRectangles.clear();
+                additionalImages.clear();
                 break;
 
             case CIG::WESTEN_CHESS:
@@ -164,7 +180,6 @@ namespace CIG
         设置棋盘显示参数
         先确定棋子大小, 在窗口初始化时绘制棋盘并根据棋盘情况确定客户区大小.
         **************************************************************************/
-        const long double PI = acos((long double) - 1.0);
         typedef float rad;
         rad theta1 = thetaOfXTop / 180.0 * PI,
             theta2 = thetaOfXY / 180.0 * PI;
@@ -211,21 +226,18 @@ namespace CIG
                 }
             }
         }
-        LINE_DIRECTION.clear();
-        LINE_DIRECTION.push_back(PointOrVector(1, 0));
-        LINE_DIRECTION.push_back(PointOrVector(0, 1));
-        //设置界限初值
+        //设置界限初值, 也是棋盘的最大边界
         boundsOfBoardRelatively[RIGHT] = -1E7;
         boundsOfBoardRelatively[LEFT] = 1E7;
         boundsOfBoardRelatively[TOP] = 1E7;
         boundsOfBoardRelatively[BOTTOM] = -1E7;
         coordinateOf00 = PointOrVector_Float(0, 0);         //先求相对位置
 
-        for(int i = 0; i < (1 << CIGRuleConfig::INI_BOARD_WIDTH_LOG2); ++i)
+        for(int i = 0; i < (1 << INI_BOARD_WIDTH_LOG2); ++i)
         {
-            for(int j = 0; j < (1 << CIGRuleConfig::INI_BOARD_HEIGHT_LOG2); j++)
+            for(int j = 0; j < (1 << INI_BOARD_HEIGHT_LOG2); j++)
             {
-                if(CIGRuleConfig::BOARD_RANGE[j][i])
+                if(BOARD_RANGE[j][i])
                 {
                     PointOrVector_Float temp = getGeometryCoordination(i, j);
 

@@ -5,6 +5,8 @@ namespace CIG
 {
     typedef float degree;
 
+    const long double PI = acos((long double) - 1.0);
+
     enum GAME_TYPE
     {
         ERRROR,

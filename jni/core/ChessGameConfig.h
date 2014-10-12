@@ -20,37 +20,39 @@ namespace CIG
             virtual bool compileGUI();
 
             //游戏种类相关配置
-            static char *OPERATION_NAME[END];
-            OPERATIONS operationGraph[END][END + 1];
             int INI_BOARD_WIDTH_LOG2;
             int INI_BOARD_HEIGHT_LOG2;
+            OPERATIONS operationGraph[END][END + 1];
             bool **BOARD_RANGE;
             CHESSMAN_TYPES ** *INI_BOARD;
 
             //游戏界面配置
-            bool roundChessman;                             //棋子圆或方
-            bool namedChessman;                            //棋子拥有名字
-            bool markCrossByCircle;                          //是否标记棋路交叉点
-            bool drawLineWhenDrawDot;                  //是否画线(若画线, 则一定要画点, 否则点处会有空白)
-            float markCircleRadias;
-            degree thetaOfXY;                                  //棋盘线的夹角
             degree thetaOfXTop;                              //x轴的俯角
-            PointOrVector_Float chessmanRect;       //棋子矩形. 必须保证棋子在棋盘上没有重叠
+            degree thetaOfXY;                                  //棋盘线的夹角
             float lengthOfLattticeX;
             float lengthOfLattticeY;
-            int latticePenWidth;
-            float additionalPointRadias;
             float borderWidth;
-            PointOrVector_Float Vx;
-            PointOrVector_Float Vy;
-            string *chessmanName;
-            vector<PointOrVector> LINE_DIRECTION;
+            int latticePenWidth;
+
+            bool markCrossByCircle;                          //是否标记棋路交叉点
+            float markCircleRadias;
+            bool drawLineWhenDrawDot;                  //是否画线(若画线, 则一定要画点, 否则点处会有空白)
+
+            bool roundChessman;                             //棋子圆或方
+            bool namedChessman;                            //棋子拥有名字
+            PointOrVector_Float chessmanRect;       //棋子矩形. 必须保证棋子在棋盘上没有重叠
+            map<CHESSMAN_TYPES, string> chessmanNames;
+
+            vector<PointOrVector> LINE_DIRECTION;   // TO-DO 不再是常量的, 改名字
             vector<Line> addtionalLines;
-            vector<PointOrVector> addtionalCircles;
+            vector<PointOrVector> additionalCircles;
+            float additionalCircleRadias;
             vector<pair<PointOrVector, PointOrVector>> addtionalRectangles;
-            vector<pair<PointOrVector, string>> addtionalImages;
+            vector<pair<PointOrVector, string>> additionalImages;
 
             //内部管理的属性
+            PointOrVector_Float Vx;
+            PointOrVector_Float Vy;
             float boundsOfBoardRelatively[4];
             enum
             {
