@@ -4,36 +4,23 @@
 
 #include "Object.h"
 #include "ChessGameConfig.h"
+#include "Player.h"
 
 namespace CIG
 {
     class GameHead : public Object
     {
         public:
-            GAME_TYPE typeId;
-            string version;
-            Player players[PLAYER_NUM];
-            unsigned roomNum;
-            unsigned round;
-            PLAYER_NAMES nowTurn;
 
             GameHead()
             {
             }
 
-            friend ostringstream &operator << (ostringstream &oss, const GameHead &o)
-            {
-                oss << "{" << "typeId:" << o.typeId << ",roomNum:" << o.roomNum << ",round:" << o.round << ",nowTurn:" << o.nowTurn << ",version:" << version << "}";
-
-                return oss;
-            }
-
-            friend ostream &operator << (ostream &os, const GameHead &o)
+            inline virtual string toJSON()const
             {
                 ostringstream oss;
-                oss << o;
-                os << oss.str();
-                return os;
+                oss << JSON_OBJECT(JSON_KEYVALUE(typeId) JSON_COMMA JSON_KEYVALUE(roomNum) JSON_COMMA JSON_KEYVALUE(round) JSON_COMMA JSON_KEYVALUE(nowTurn) JSON_COMMA JSON_KEYVALUE(version));
+                return oss.str();
             }
     };
 }

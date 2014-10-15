@@ -2,8 +2,6 @@
 #define __CIGOBJECT_H__
 
 #include "utilities.h"
-#include "ChessGameConfig.h"
-#include "GUI.h"
 /*************************************************************************
   可配置智能系统各部件的基类, 管理类型名和类型成员的个数.
   要求类名字符串生命周期长于该类.
@@ -16,6 +14,7 @@ namespace CIG
             inline Object() {};
             inline Object(const Object &o) {};
             inline virtual ~Object() {};
+            static ostringstream errors;
 
             inline virtual void assert(bool b, string msg = "")const
             {
@@ -41,10 +40,15 @@ namespace CIG
 
             inline virtual void informError(const string &str)const
             {
-                cout << "*******************error***************\n" << str << endl;
+                errors << "*******************error***************\n" << str << endl;
                 ostringstream oss;
                 oss << *this;
-                cout << "error in " << oss.str();
+                errors << "error in " << oss.str() << endl;
+            }
+
+            inline virtual string toJSON()const
+            {
+                return "{}";
             }
 
             friend ostream &operator << (ostream &os, const Object &o)
@@ -57,7 +61,7 @@ namespace CIG
 
             friend ostringstream &operator<<(ostringstream &oss, const Object &o)
             {
-                oss << "{}";
+                oss << o.toJSON();
                 return oss;
             }
     };

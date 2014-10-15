@@ -19,11 +19,11 @@ namespace CIG
             void operator=(const Motion &op);
             bool operator==(const Motion &op)const;
 
-            friend std::ostringstream &operator<<(std::ostringstream &oss, const Motion &op)                        ///不加引用符号, 就会调用拷贝构造函数, id管理得乱七八糟.
+            inline virtual string toJSON()const
             {
-                oss << "Operation::\n" << "\toperation: " << op.operation << "\n\tchessman: ";
-                //oss<<(const Chessman&)(*op.chessman);             // TO-DO
-                return oss;
+                ostringstream oss;
+                oss << JSON_OBJECT(JSON_KEYVALUE(operation) JSON_COMMA JSON_KEYVALUE(chessmanIndex) JSON_COMMA JSON_KEYVALUE(distination) JSON_COMMA JSON_KEYVALUE(savedCoodinate));
+                return oss.str();
             }
 
             OPERATIONS operation;           //操作类型

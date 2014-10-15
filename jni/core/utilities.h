@@ -19,11 +19,11 @@ using namespace std;
 
 #include "types.h"
 #include "../libjson/libjson.h"
-#include "C:\Program Files\Java\jdk1.8.0_11\include\jni.h"
+//#include "C:\Program Files\Java\jdk1.8.0_11\include\jni.h"
 
 /*************************************************************************
- 调试开关
- **************************************************************************/
+调试开关
+**************************************************************************/
 //#define VERBOS
 //#define DEBUG_INTEGER
 //#define DEBUG_ARRAY
@@ -31,8 +31,19 @@ using namespace std;
 //#define DEBUG_REF
 //#define DEBUG_MESSAGE
 
+/*****************************************************
+ 辅助宏定义
+ *****************************************************/
+#define JSON_KEYVALUE(j) JSON_KEY(j) << j
+#define JSON_KEY(k) JSON_STRING(k) << ":"
+#define JSON_STRING(s) <<"\""#s"\""
+#define JSON_VALUE(v) <<v
+#define JSON_COMMA <<","
+#define JSON_ARRAY(a) "[" a <<"]"
+#define JSON_OBJECT(a) "{" a <<"}"
+
 /*************************************************************************
-    辅助类和结构体
+    辅助类和辅助函数
     **************************************************************************/
 struct PointOrVector_Float
 {
@@ -196,6 +207,10 @@ struct Line
 
 int roundInt(float f);
 
+void parseBoolArray(const JSONNode &json, const string &s, bool b[]);
+void parseIntArray(const JSONNode &json, const string &s, int i[]);
+template<class T>
+void QuickSort(T a[], unsigned n);
 #endif // UTILITIES
 
 

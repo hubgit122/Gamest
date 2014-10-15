@@ -11,16 +11,18 @@ namespace CIG
     {
         public:
             ChessmanIndex(void);
-            ChessmanIndex(PLAYER_NAMES p, int i);
+            ChessmanIndex(unsigned short p, unsigned short i);
             ChessmanIndex(const ChessmanIndex &ci);
             ~ChessmanIndex(void);
             void operator = (const ChessmanIndex &ci);
 
-            PLAYER_NAMES player;
-            int index;
+            unsigned short player;
+            unsigned short index;
 
             bool operator==(const ChessmanIndex &ci);
             void clear();
+
+            inline virtual string toJSON()const;
     };
 }
 #endif //__CHESSMAN_LOCATION__

@@ -3,9 +3,9 @@
 
 bool CIG::Chessman::onPickIntent()
 {
-    if(status == ChessGameConfig::ON_BOARD)
+    if(status == ON_BOARD)
     {
-        status = ChessGameConfig::OFF_BOARD;
+        status = OFF_BOARD;
         return true;
     }
     else
@@ -16,9 +16,9 @@ bool CIG::Chessman::onPickIntent()
 
 bool CIG::Chessman::onPutIntent(PointOrVector p)
 {
-    if(status == ChessGameConfig::OFF_BOARD)
+    if(status == OFF_BOARD)
     {
-        status = ChessGameConfig::ON_BOARD;
+        status = ON_BOARD;
         coordinate = p;
         return true;
     }
@@ -30,9 +30,9 @@ bool CIG::Chessman::onPutIntent(PointOrVector p)
 
 bool CIG::Chessman::onCapturedIntent()
 {
-    if(status == ChessGameConfig::ON_BOARD)
+    if(status == ON_BOARD)
     {
-        status = ChessGameConfig::CAPTURED;
+        status = CAPTURED;
         return true;
     }
     else
@@ -41,7 +41,7 @@ bool CIG::Chessman::onCapturedIntent()
     }
 }
 
-bool CIG::Chessman::onPromotionIntent(ChessGameConfig::CHESSMAN_TYPES t)
+bool CIG::Chessman::onPromotionIntent(CHESSMAN_TYPES t)
 {
     chessmanType = t;
     return true;
@@ -59,15 +59,15 @@ void CIG::Chessman::operator=(const Chessman &c)
 
 void CIG::Chessman::undoPick()
 {
-    this->status = ChessGameConfig::ON_BOARD;
+    this->status = ON_BOARD;
 }
 
 void CIG::Chessman::undoPut()
 {
-    this->status = ChessGameConfig::OFF_BOARD;
+    this->status = OFF_BOARD;
 }
 
 void CIG::Chessman::undoCaptured()
 {
-    this->status = ChessGameConfig::ON_BOARD;
+    this->status = ON_BOARD;
 }

@@ -1,4 +1,6 @@
 #include "GameManager.h"
+#include "ChessGame.h"
+#include "Game.h"
 using namespace CIG;
 
 map<int, Game *> games;

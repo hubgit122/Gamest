@@ -2,12 +2,12 @@
 #include "Motion.h"
 
 
-CIG::Motion::Motion() : chessmanIndex(), operation(ChessGameConfig::NOMORE), distination(0)
+CIG::Motion::Motion()
 {
 
 }
 
-CIG::Motion::Motion(ChessmanIndex ci, ChessGameConfig::OPERATIONS op, PointOrVector dist /*= 0*/, PointOrVector pre /*= 0*/)
+CIG::Motion::Motion(ChessmanIndex ci, OPERATIONS op, PointOrVector dist /*= 0*/, PointOrVector pre /*= 0*/)
     : chessmanIndex(ci), operation(op), distination(dist), savedCoodinate(pre)
 {
 }

@@ -19,28 +19,20 @@ namespace CIG
             {
                 memcpy(this, &c, sizeof(Chessman));
             };
-            inline Chessman(CHESSMAN_TYPES t, const PointOrVector &c, PLAYER_NAMES p, int index, CHESSMAN_STATUS s, VISIBILITIES v)
+            inline Chessman(CHESSMAN_TYPES t, const PointOrVector &c, unsigned short p, unsigned short index, CHESSMAN_STATUS s)
                 : chessmanType(t), coordinate(c), chessmanIndex(p, index), status(s)
             {
-                for(int i = 0 ; i < PLAYER_NUM; ++i)
-                {
-                    this->visibility[i] = VISIBILITIES::ALL;
-                }
             }
             CHESSMAN_TYPES chessmanType;
             struct PointOrVector coordinate;
             ChessmanIndex chessmanIndex;
             CHESSMAN_STATUS status;
-            VISIBILITIES visibility[PLAYER_NUM];
-            //ChessmanGroup& chessmanGroup;
             void operator = (const Chessman &c);
-
-            friend std::ostringstream &operator<<(std::ostringstream &oss, const Chessman &c)
+            inline virtual string toJSON()const
             {
-                oss << "Chessman::\n" << "\tchessmanType: " << c.chessmanType << "\n\tcoordinate: ";
-                oss << c.coordinate << "\nChessmanIndex.player: " << c.chessmanIndex.player << '\n';
-                return oss;
+
             }
+
             //************************************
             // Method:    onXXIntent
             // FullName:  CIG::Chessman::onIntent

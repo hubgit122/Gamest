@@ -1,11 +1,9 @@
 
 #include "ChessmanIndex.h"
-#include "GUI.h"
 namespace CIG
 {
     ChessmanIndex::ChessmanIndex(void)
     {
-        clear();
     }
 
     ChessmanIndex::ChessmanIndex(const ChessmanIndex &ci): player(ci.player), index(ci.index)
@@ -13,7 +11,7 @@ namespace CIG
     }
 
 
-    ChessmanIndex::ChessmanIndex(ChessGameConfig::PLAYER_NAMES p, int i): player(p), index(i)
+    ChessmanIndex::ChessmanIndex(unsigned short p, unsigned short i): player(p), index(i)
     {
     }
 
@@ -23,7 +21,7 @@ namespace CIG
 
     void ChessmanIndex::clear()
     {
-        player = (ChessGameConfig::PLAYER_NAMES) - 1;
+        player = (unsigned short) - 1;
         index = -1;
     }
 

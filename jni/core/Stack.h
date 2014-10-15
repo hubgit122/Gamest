@@ -7,8 +7,6 @@
 
 namespace CIG
 {
-    class Chessboard;
-    class Motion;
     template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
     class Stack: public Array< T, INI_DEPTH, DEPTH_INCRE>
     {
@@ -23,20 +21,6 @@ namespace CIG
             inline T popThenGet();
             inline void popNoReturn();
             inline T &top()const;
-            friend ostream &operator << (ostream &os, const Stack<T, INI_DEPTH, DEPTH_INCRE> &o)
-            {
-                ostringstream oss;
-                oss << o;
-                os << oss.str();
-                return os;
-            }
-
-            friend ostringstream &operator << (ostringstream &oss, const Stack<T, INI_DEPTH, DEPTH_INCRE> &o)
-            {
-                oss << "Stack<" << typeid(T).name() << ',' << INI_DEPTH << ',' << DEPTH_INCRE << ">::\n";
-                oss << (const Array<T, INI_DEPTH, DEPTH_INCRE> &)o;
-                return oss;
-            }
     };
 
     template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
@@ -74,10 +58,10 @@ namespace CIG
     template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
     CIG::Stack<T, INI_DEPTH, DEPTH_INCRE>::Stack(const Stack &s): Array(s) {}
 
-    typedef Stack<Motion, ChessGameConfig::INT_BOARD_HISTORY_STACK_SIZE, 0> Move;
-    typedef Stack<Chessboard, ChessGameConfig::INT_BOARD_HISTORY_STACK_SIZE, 0> ChessboardStack;
-    typedef  Stack<OPERATIONS, ChessGameConfig::INT_BOARD_HISTORY_STACK_SIZE, 0> OperationStack;
-    typedef Stack<Move, ChessGameConfig::INT_BOARD_HISTORY_STACK_SIZE, 0> MoveStack;
+    class Motion;
+    typedef Stack<Motion, INT_BOARD_HISTORY_STACK_SIZE, 0> Move;
+    typedef  Stack<OPERATIONS, INT_BOARD_HISTORY_STACK_SIZE, 0> OperationStack;
+    typedef Stack<Move, INT_BOARD_HISTORY_STACK_SIZE, 0> MoveStack;
 }
 
 #endif /*__STACK_H_*/

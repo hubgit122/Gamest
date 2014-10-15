@@ -2,12 +2,12 @@
 #define __GAME_MANAGER_H__
 
 #include "utilities.h"
+#include "Game.h"
 
 #define JNICALL
 #define  JNIEXPORT
 using namespace std;
 
-class Game;
 extern map<int, Game *> games;
 extern jstring error;
 extern "C"

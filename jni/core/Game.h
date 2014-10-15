@@ -17,9 +17,14 @@ namespace CIG
             }
             virtual ~Game();
 
-            GameHead head;
+            GAME_TYPE typeId;
+            string version;
+            Array<Player, INI_PLAYER_ARRAY_SIZE, 0> players;
+            unsigned roomNum;
+
+            inline virtual string toJSON()const;
         private:
-            Game();
+            Game() {};
     };
 }
 #endif

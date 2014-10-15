@@ -12,12 +12,12 @@ namespace CIG
         private:
             MotionGenerator();
         public:
-            MotionGenerator(Chessboard &cb);
+            MotionGenerator(ChessboardInterface &cb);
             virtual ~MotionGenerator() {};
             //void operator=(const MotionGenerator&mg);
 
             MoveStack moveStack;
-            Chessboard &chessboard;             //每个ChesssBoard有一个MotionGenerator实例.
+            ChessboardInterface &chessboard;             //每个ChesssBoard有一个MotionGenerator实例.
             //virtual OperationStack* nextMove();
             virtual void generateMoves(bool guiInput = false);
             virtual bool generateRecursively(Move &logMotionStack, OperationStack &operationStack, bool guiInput = false);

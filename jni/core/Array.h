@@ -35,29 +35,24 @@ namespace CIG
             inline void memRealloc();
             inline void clearMem();
             inline void clear();
-
-            friend ostream &operator << (ostream &os, const Array<T, INI_DEPTH, DEPTH_INCRE> &o)
-            {
-                ostringstream oss;
-                oss << o;
-                os << oss.str();
-                return os;
-            }
-
-            friend ostringstream &operator << (ostringstream &oss, const Array<T, INI_DEPTH, DEPTH_INCRE> &o)
-            {
-                oss << "[";
-
-                for(int i = 0; i < o.size; ++i)
-                {
-                    oss << o[i] << ",";
-                }
-
-                oss << "]";
-
-                return oss;
-            }
+            inline virtual string toJSON()const;
     };
+
+    template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
+    string CIG::Array<T, INI_DEPTH, DEPTH_INCRE>::toJSON()
+    {
+        ostringstream oss;
+        oss << "[";
+
+        for(int i = 0; i < o.size; ++i)
+        {
+            oss << o[i] << ",";
+        }
+
+        oss << "]";
+
+        return oss.str();
+    }
 
     template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
     void CIG::Array<T, INI_DEPTH, DEPTH_INCRE>::forceCopyFrom(const Array<T, INI_DEPTH, DEPTH_INCRE> &a)
@@ -308,7 +303,7 @@ namespace CIG
     }
 
     class Chessman;
-    typedef Array<Chessman, ChessGameConfig::INI_CHESSMAN_GROUP_SIZE, 0> ChessmanGroup;
+    typedef Array<Chessman, INI_CHESSMAN_GROUP_SIZE, 0> ChessmanGroup;
 }
 #endif /*__ARRAY_H_*/
 
