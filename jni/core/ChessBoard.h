@@ -66,14 +66,14 @@ namespace CIG
             // 注意用法: 预告在某处增加一枚棋子, 返回棋子的指针, 但是还没有真正在游戏中放下这个子.
             //************************************
             virtual bool onAddIntent(PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false);
-            virtual bool onPutIntent(const Chessman *const c, PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false);
+            virtual bool onPutIntent(Chessman *c, PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false);
             virtual bool onCaptureIntent(Chessman *c, PointOrVector p, bool refreshEvaluations = false);
             virtual bool onPromotionIntent(Chessman *c, CHESSMAN_TYPES t, bool refreshEvaluations = false);
             virtual bool onPromotionIntent(PointOrVector p, CHESSMAN_TYPES t, bool refreshEvaluations = false);
-            virtual bool onMoveIntent(Move &move, bool refreshEvaluations = false);
-            virtual bool onWholeMoveIntent(Move &move, bool refreshEvaluations = false);
+            virtual bool onMoveIntent(const Move &move, bool refreshEvaluations = false);
+            virtual bool onWholeMoveIntent(const Move &move, bool refreshEvaluations = false);
             virtual bool onMotionIntent(const Motion &operation, bool refreshEvaluations = false);
-            virtual bool canMakeWholeMove(Move &move, bool refreshEvaluations = false);
+            virtual bool canMakeWholeMove(const Move &move, bool refreshEvaluations = false);
             virtual bool onChangeTurn();
 
             //************************************
@@ -94,9 +94,9 @@ namespace CIG
             virtual void undoCaptured(Chessman *c, bool refreshEvaluations = false);
             virtual void undoPromotion(Chessman *c, CHESSMAN_TYPES t, bool refreshEvaluations = false);
             virtual void undoPromotion(PointOrVector p, CHESSMAN_TYPES t, bool refreshEvaluations = false);
-            virtual void undoMove(Move &move, bool refreshEvaluations = false);
-            virtual void undoWholeMove(Move &move, bool refreshEvaluations = false);
-            virtual void undoMotion(Motion &operation, bool refreshEvaluations = false);
+            virtual void undoMove(const Move &move, bool refreshEvaluations = false);
+            virtual void undoWholeMove(const Move &move, bool refreshEvaluations = false);
+            virtual void undoMotion(const Motion &operation, bool refreshEvaluations = false);
             virtual void undoChangeTurn();
             virtual void refreshEvaluations();      //如果需要对每个局面重新计算评估值, 请实现此函数, 并在适当的地方调用. 如果采用增量计算的形式, 请忽略此函数.
             virtual bool gameOver();
@@ -251,7 +251,7 @@ namespace CIG
     }
 
     template <unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2, unsigned short PLAYER_NUM>
-    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::onPutIntent(Chessman *const c, PointOrVector p, bool refreshEvaluations)
+    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::onPutIntent(Chessman *c, PointOrVector p, bool refreshEvaluations)
     {
         if((*this)[p] != NULL)           //beyondBoard时返回-1(ffff), 所以也会返回false
         {
@@ -296,7 +296,7 @@ namespace CIG
     }
 
     template <unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2, unsigned short PLAYER_NUM>
-    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::onMoveIntent(Move &move, bool refreshEvaluations)
+    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::onMoveIntent(const Move &move, bool refreshEvaluations)
     {
         bool result = true;
 
@@ -338,7 +338,7 @@ namespace CIG
     }
 
     template <unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2, unsigned short PLAYER_NUM>
-    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::canMakeWholeMove(Move &move, bool refreshEvaluations)
+    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::canMakeWholeMove(const Move &move, bool refreshEvaluations)
     {
         Chessboard cb(*this);
         bool result = cb.onWholeMoveIntent(move, refreshEvaluations);
@@ -346,7 +346,7 @@ namespace CIG
     }
 
     template <unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2, unsigned short PLAYER_NUM>
-    void Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::undoMove(Move &move, bool refreshEvaluations)
+    void Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::undoMove(const Move &move, bool refreshEvaluations)
     {
         for(int i = move.size - 1; i >= 0; --i)
         {
@@ -355,7 +355,7 @@ namespace CIG
     }
 
     template <unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2, unsigned short PLAYER_NUM>
-    void Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::undoMotion(Motion &operation, bool refreshEvaluations)
+    void Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::undoMotion(const Motion &operation, bool refreshEvaluations)
     {
         switch(operation.operation)
         {
@@ -381,13 +381,13 @@ namespace CIG
     }
 
     template <unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2, unsigned short PLAYER_NUM>
-    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::onWholeMoveIntent(Move &move, bool refreshEvaluations)
+    bool Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::onWholeMoveIntent(const Move &move, bool refreshEvaluations)
     {
         return onMoveIntent(move, refreshEvaluations) && onChangeTurn();
     }
 
     template <unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2, unsigned short PLAYER_NUM>
-    void Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::undoWholeMove(Move &move, bool refreshEvaluations)
+    void Chessboard<INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, PLAYER_NUM>::undoWholeMove(const Move &move, bool refreshEvaluations)
     {
         undoChangeTurn();
         undoMove(move, refreshEvaluations);

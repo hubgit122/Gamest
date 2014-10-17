@@ -48,14 +48,14 @@ namespace CIG
             // 注意用法: 预告在某处增加一枚棋子, 返回棋子的指针, 但是还没有真正在游戏中放下这个子.
             //************************************
             virtual bool onAddIntent(PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false) = 0;
-            virtual bool onPutIntent(const Chessman *const c, PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false) = 0;
+            virtual bool onPutIntent(Chessman *c, PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false) = 0;
             virtual bool onCaptureIntent(Chessman *c, PointOrVector p, bool refreshEvaluations = false) = 0;
             virtual bool onPromotionIntent(Chessman *c, CHESSMAN_TYPES t, bool refreshEvaluations = false) = 0;
             virtual bool onPromotionIntent(PointOrVector p, CHESSMAN_TYPES t, bool refreshEvaluations = false) = 0;
-            virtual bool onMoveIntent(Move &move, bool refreshEvaluations = false) = 0;
-            virtual bool onWholeMoveIntent(Move &move, bool refreshEvaluations = false) = 0;
+            virtual bool onMoveIntent(const Move &move, bool refreshEvaluations = false) = 0;
+            virtual bool onWholeMoveIntent(const Move &move, bool refreshEvaluations = false) = 0;
             virtual bool onMotionIntent(const Motion &operation, bool refreshEvaluations = false) = 0;
-            virtual bool canMakeWholeMove(Move &move, bool refreshEvaluations = false) = 0;
+            virtual bool canMakeWholeMove(const Move &move, bool refreshEvaluations = false) = 0;
             virtual bool onChangeTurn() = 0;
 
             //************************************

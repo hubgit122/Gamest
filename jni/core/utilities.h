@@ -19,7 +19,7 @@ using namespace std;
 
 #include "types.h"
 #include "../libjson/libjson.h"
-//#include "C:\Program Files\Java\jdk1.8.0_11\include\jni.h"
+#include "C:\Program Files\Java\jdk1.8.0_11\include\jni.h"
 
 /*************************************************************************
 µ÷ÊÔ¿ª¹Ø
