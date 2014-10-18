@@ -8,33 +8,47 @@
 
 namespace CIG
 {
-    template <class T, unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2>
-    class Board : public Array < T, 1 << INI_BOARD_WIDTH_LOG2 << INI_BOARD_HEIGHT_LOG2, -1 >
+    template <class T>
+    class Board : public Array < T, 256, 0>
     {
-        public:
-            Board() : Array()
+    public:
+        unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2;
+        Board(unsigned short INI_BOARD_WIDTH_LOG2, unsigned short INI_BOARD_HEIGHT_LOG2) : Array(),INI_BOARD_WIDTH_LOG2(INI_BOARD_WIDTH_LOG2),INI_BOARD_HEIGHT_LOG2(INI_BOARD_HEIGHT_LOG2)
+        {
+            for(short i = 0; i < (1 << INI_BOARD_HEIGHT_LOG2); ++i)
             {
-                for(short i = 0; i < (1 << INI_BOARD_HEIGHT_LOG2); ++i)
+                for(short j = 0; j < (1 << INI_BOARD_WIDTH_LOG2); ++j)
                 {
-                    for(short j = 0; j < (1 << INI_BOARD_WIDTH_LOG2); ++j)
-                    {
-                        this->add(T());
-                    }
+                    this->add
+                    (T());
                 }
-            };
-            Board(const Board &b) : Array < T, 1 << INI_BOARD_WIDTH_LOG2 << INI_BOARD_HEIGHT_LOG2, -1 > (b) {};
-            ~Board();
-            inline virtual string toJSON()const;
-
-            void operator= (const Board &b)
-            {
-                (Array &)(*this) = (const Array < T, 1 << INI_BOARD_WIDTH_LOG2 << INI_BOARD_HEIGHT_LOG2, -1 > &)b;
             }
+        };
+        Board(const Board &b) : Array(b)
+        {
+            INI_BOARD_WIDTH_LOG2 = b.INI_BOARD_WIDTH_LOG2;
+            INI_BOARD_HEIGHT_LOG2 = b.INI_BOARD_HEIGHT_LOG2;
+        };
 
-            T &operator[](PointOrVector p)const
-            {
-                return (*this)[(p[1] << INI_BOARD_WIDTH_LOG2) + p[0]];
-            }
+        ~Board();
+        inline virtual string toJSON()const;
+
+        void operator= (const Board &b)
+        {
+            (Array&const)(*this) = (const Array < T, 256, 0> &)b;
+            INI_BOARD_WIDTH_LOG2 = b.INI_BOARD_WIDTH_LOG2;
+            INI_BOARD_HEIGHT_LOG2 = b.INI_BOARD_HEIGHT_LOG2;
+        }
+
+        T &operator[](PointOrVector p)const
+        {
+            return (*this)[(p[1] << INI_BOARD_WIDTH_LOG2) + p[0]];
+        }
+
+        T &at(unsigned short y, unsigned short x)const
+        {
+            return (*this)[(y << INI_BOARD_WIDTH_LOG2) + x];
+        }
     };
 }
 

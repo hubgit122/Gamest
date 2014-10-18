@@ -37,9 +37,11 @@ int Partition(T a[], int p, int r)
 
     while(true)
     {
-        while(i < r && a[++i] < x);
+        while(i < r && a[++i] < x)
+            ;
 
-        while(j > 0 && a[--j] > x);
+        while(j > 0 && a[--j] > x)
+            ;
 
         if(i >= j)
         {
@@ -61,26 +63,7 @@ inline void Swap(T &s, T &t)
     t = temp;
 }
 
-void parseBoolArray(const JSONNode &json, const string &s, bool b[])
-{
-    try
-    {
-        const JSONNode &a = json.at(s);
-        JSONNode::const_iterator i = a.begin();
-        int j = 0;
-
-        while(i != a.end())
-        {
-            b[j++] = (i++)->as_bool();
-        }
-    }
-    catch(std::out_of_range *e)
-    {
-        return;
-    }
-}
-
-void parseIntArray(const JSONNode &json, const string &s, int i[])
+void parseBoolArray(const JSONNode &json, const string &s, vector<bool>& v)
 {
     try
     {
@@ -90,7 +73,25 @@ void parseIntArray(const JSONNode &json, const string &s, int i[])
 
         while(it != a.end())
         {
-            i[j++] = (i++)->as_int();
+            v.push_back((it++)->as_bool());
+        }
+    }
+    catch(std::out_of_range *e)
+    {
+        return;
+    }
+}
+
+void parseIntArray(const JSONNode &json, const string &s, vector<int>& v)
+{
+    try
+    {
+        const JSONNode &a = json.at(s);
+        JSONNode::const_iterator it = a.begin();
+
+        while(it != a.end())
+        {
+            v.push_back((it++)->as_int());
         }
     }
     catch(std::out_of_range *e)

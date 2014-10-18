@@ -36,7 +36,10 @@ using namespace std;
  *****************************************************/
 #define JSON_KEYVALUE(j) JSON_KEY(j) << j
 #define JSON_KEY(k) JSON_STRING(k) << ":"
-#define JSON_STRING(s) <<"\""#s"\""
+#define JSON_INI(a) a(json.at(TO_STRING(a)))
+#define JSON_GET(a,type) a = json.at(TO_STRING(a)).as_##type();
+#define JSON_STRING(s) <<TO_STRING(s)
+#define TO_STRING(s) "\""#s"\""
 #define JSON_VALUE(v) <<v
 #define JSON_COMMA <<","
 #define JSON_ARRAY(a) "[" a <<"]"
@@ -207,8 +210,9 @@ struct Line
 
 int roundInt(float f);
 
-void parseBoolArray(const JSONNode &json, const string &s, bool b[]);
-void parseIntArray(const JSONNode &json, const string &s, int i[]);
+void parseBoolArray(const JSONNode &json, const string &s, vector<bool>& v);
+void parseIntArray(const JSONNode &json, const string &s, vector<int>& v);
+
 template<class T>
 void QuickSort(T a[], unsigned n);
 #endif // UTILITIES
