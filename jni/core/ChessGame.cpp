@@ -2,25 +2,21 @@
 
 namespace CIG
 {
-
-
-    ChessGame::ChessGame(const JSONNode &json) :
-            config(json.at("config"))
-            history(json.at("history")),
-            chessBoard(json.at("chessBoard"))
+    ChessGame::ChessGame(const MyJSONNode &json) : Game(json), JSON_INI(history), chessBoard(json, *this)
     {
     }
 
-    void ChessGame::operator=(const ChessGame &g)
+    ChessGame &ChessGame::operator=(const ChessGame &g)
     {
         history = g.history;
         chessBoard = g.chessBoard;
+        return *this;
     }
 
     std::string ChessGame::toJSON() const
     {
         ostringstream oss;
-        oss << JSON_OBJECT(JSON_KEYVALUE(config) JSON_COMMA JSON_KEYVALUE(history) JSON_COMMA JSON_KEYVALUE(chessBoard));
+        oss << JSON_OBJECT(JSON_COMMA JSON_KEYVALUE(history) JSON_COMMA JSON_KEYVALUE(chessBoard));
         return oss.str();
     }
 }

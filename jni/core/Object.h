@@ -12,6 +12,7 @@ namespace CIG
     {
         public:
             inline Object() {};
+            inline Object(const MyJSONNode &json) {}
             inline Object(const Object &o) {};
             inline virtual ~Object() {};
             static ostringstream errors;

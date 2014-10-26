@@ -9,21 +9,19 @@ namespace CIG
 {
     class MotionGenerator
     {
-        private:
-            MotionGenerator();
         public:
-            MotionGenerator(ChessboardInterface &cb);
+            MotionGenerator(Chessboard &cb) : chessboard(cb), config(cb.game.config) {}
             virtual ~MotionGenerator() {};
-            //void operator=(const MotionGenerator&mg);
 
             MoveStack moveStack;
-            ChessboardInterface &chessboard;             //每个ChesssBoard有一个MotionGenerator实例.
-            //virtual OperationStack* nextMove();
+            Chessboard &chessboard;
+            ChessGameConfig &config;
+
             virtual void generateMoves(bool guiInput = false);
             virtual bool generateRecursively(Move &logMotionStack, OperationStack &operationStack, bool guiInput = false);
             virtual void generateMotionsForOneOperation(OperationStack &operationStack, Move &logOperationStack, Move &runningOperationStack, bool guiInput = false);
 
-            bool testAndSave(OPERATIONS s, Chessman *c, PointOrVector dist, Move &runningOperationStack);
+            bool testAndSave(unsigned short s, Chessman *c, PointOrVectorS dist, Move &runningOperationStack);
     };
 }
 #endif /*__MOTIONGENERATOR_H_*/

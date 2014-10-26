@@ -14,7 +14,7 @@ namespace CIG
         public:
             Motion();
             Motion(const Motion &op);
-            Motion(ChessmanIndex ci, OPERATIONS op, PointOrVector dist = 0, PointOrVector pre = 0);
+            Motion(ChessmanIndex ci, unsigned short op, PointOrVectorS dist = 0, PointOrVectorS pre = 0);
             virtual ~Motion();
             void operator=(const Motion &op);
             bool operator==(const Motion &op)const;
@@ -26,10 +26,10 @@ namespace CIG
                 return oss.str();
             }
 
-            OPERATIONS operation;           //操作类型
+            unsigned short operation;           //操作类型
             ChessmanIndex chessmanIndex;                        //棋子所属的玩家号和在玩家手中的索引号
-            PointOrVector distination;                              //事件的位置
-            PointOrVector savedCoodinate;                       //为了事件的恢复, 保存初始位置
+            PointOrVectorS distination;                              //事件的位置
+            PointOrVectorS savedCoodinate;                       //为了事件的恢复, 保存初始位置
     };
 }
 

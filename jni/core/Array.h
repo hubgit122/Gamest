@@ -2,7 +2,6 @@
 #ifndef __ARRAY_H__
 #define __ARRAY_H__
 #include "utilities.h"
-#include "ChessGameConfig.h"
 #include "Object.h"
 
 namespace CIG
@@ -13,6 +12,7 @@ namespace CIG
         public:
             inline Array();
             inline Array(const Array &a);
+            inline Array(const MyJSONNode &json);
             inline virtual ~Array();
 
             T *elements;
@@ -39,18 +39,47 @@ namespace CIG
     };
 
     template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
+    CIG::Array<T, INI_DEPTH, DEPTH_INCRE>::Array(const MyJSONNode &json) : size(0), capacity(INI_DEPTH)
+    {
+        try
+        {
+            JSONNode::const_iterator it = json.begin();
+
+            while(it != json.end())
+            {
+                MyJSONNode k(*it);
+                this->add(T(k));
+                it++;
+            }
+        }
+        catch(std::out_of_range *e)
+        {
+            return;
+        }
+    }
+
+    template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
     string CIG::Array<T, INI_DEPTH, DEPTH_INCRE>::toJSON()
     {
         ostringstream oss;
         oss << "[";
 
-        for(int i = 0; i < o.size; ++i)
+        for(int i = 0; i < this.size;)
         {
-            oss << o[i] << ",";
+            oss << (typeid(T) == typeid(string) ? "\"" : "") << (*this)[i] << (typeid(T) == typeid(string) ? "\"" : "");
+            ++i
+
+            if(i < this.size)
+            {
+                oss << ",";
+            }
+            else
+            {
+                break;
+            }
         }
 
         oss << "]";
-
         return oss.str();
     }
 
@@ -301,9 +330,6 @@ namespace CIG
     {
         memAlloc();
     }
-
-    class Chessman;
-    typedef Array<Chessman, INI_CHESSMAN_GROUP_SIZE, 0> ChessmanGroup;
 }
 #endif /*__ARRAY_H_*/
 

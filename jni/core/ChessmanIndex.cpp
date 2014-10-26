@@ -2,20 +2,11 @@
 #include "ChessmanIndex.h"
 namespace CIG
 {
-    ChessmanIndex::ChessmanIndex(void)
-    {
-    }
-
     ChessmanIndex::ChessmanIndex(const ChessmanIndex &ci): player(ci.player), index(ci.index)
     {
     }
 
-
     ChessmanIndex::ChessmanIndex(unsigned short p, unsigned short i): player(p), index(i)
-    {
-    }
-
-    ChessmanIndex::~ChessmanIndex(void)
     {
     }
 

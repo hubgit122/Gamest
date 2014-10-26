@@ -63,7 +63,7 @@ inline void Swap(T &s, T &t)
     t = temp;
 }
 
-void parseBoolArray(const JSONNode &json, const string &s, vector<bool>& v)
+void parseBoolArray(const MyJSONNode &json, const string &s, vector<bool>& v)
 {
     try
     {
@@ -82,7 +82,7 @@ void parseBoolArray(const JSONNode &json, const string &s, vector<bool>& v)
     }
 }
 
-void parseIntArray(const JSONNode &json, const string &s, vector<int>& v)
+void parseIntArray(const MyJSONNode &json, const string &s, vector<int>& v)
 {
     try
     {

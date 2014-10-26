@@ -6,18 +6,19 @@
 #include "Array.h"
 #include "Stack.h"
 #include "ChessGameConfig.h"
+#include "Chessman.h"
 
 namespace CIG
 {
-    class ChessboardInterface;
+    class Chessboard;
     // 注意Player是完全依赖于Chesssboard的, 因为棋子的偏移量. 所以初始化时如果没有Chesssboard的信息, 也要赋空值而不是复制.
     // 拥有的棋子也是构造后在棋盘的构造函数里边加上去的.
     class Player: public Object
     {
         public:
             Player();
-            Player(unsigned short p, void(*makeBestMove_)(ChessboardInterface *cb, void *) /*= GUI::askForMove*/, ChessboardInterface *cb = NULL);
-            Player(const Player &p, ChessboardInterface *cb = NULL);
+            Player(unsigned short p, void(*makeBestMove_)(Chessboard *cb, void *) /*= GUI::askForMove*/, Chessboard *cb = NULL);
+            Player(const Player &p, Chessboard *cb = NULL);
             virtual ~Player();
             inline virtual string toJSON()const
             {
@@ -30,9 +31,9 @@ namespace CIG
 
             unsigned short index;
             Stack<Chessman, INI_CHESSMAN_GROUP_SIZE, 0> ownedChessmans;
-            ChessboardInterface *chessboard;
+            Chessboard *chessboard;
 
-            void (*makeBestMove)(ChessboardInterface *cb, void *op);
+            void (*makeBestMove)(Chessboard *cb, void *op);
     };
 }
 

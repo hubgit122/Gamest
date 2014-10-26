@@ -19,18 +19,21 @@ namespace CIG
             {
                 memcpy(this, &c, sizeof(Chessman));
             };
-            inline Chessman(CHESSMAN_TYPES t, const PointOrVector &c, unsigned short p, unsigned short index, CHESSMAN_STATUS s)
+            inline Chessman(short t, const PointOrVectorS &c, unsigned short p, unsigned short index, CHESSMAN_STATUS s)
                 : chessmanType(t), coordinate(c), chessmanIndex(p, index), status(s)
             {
             }
-            CHESSMAN_TYPES chessmanType;
-            struct PointOrVector coordinate;
+            short chessmanType;
+            PointOrVectorS coordinate;
             ChessmanIndex chessmanIndex;
             CHESSMAN_STATUS status;
+
             void operator = (const Chessman &c);
             inline virtual string toJSON()const
             {
-
+                ostringstream oss;
+                oss << JSON_OBJECT(JSON_KEYVALUE(chessmanType) JSON_COMMA JSON_KEYVALUE(coordinate) JSON_COMMA JSON_KEYVALUE(chessmanIndex) JSON_COMMA JSON_KEYVALUE(status));
+                return oss.str();
             }
 
             //************************************
@@ -44,10 +47,10 @@ namespace CIG
             // 虚函数, 默认一切操作均可通过检查. 若有特殊需要, 应该重新定义.
             //************************************
             virtual bool onPickIntent();
-            virtual bool onPutIntent(PointOrVector p);
+            virtual bool onPutIntent(PointOrVectorS p);
             virtual bool onCapturedIntent();
             virtual bool onCaptureIntent(Chessman *c);
-            virtual bool onPromotionIntent(CHESSMAN_TYPES t);
+            virtual bool onPromotionIntent(short t);
 
             virtual void undoPick();
             virtual void undoPut();

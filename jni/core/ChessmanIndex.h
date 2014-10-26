@@ -3,17 +3,17 @@
 #define __CHESSMAN_LOCATION__
 
 #include "utilities.h"
-#include "ChessGameConfig.h"
+#include "Object.h"
 
 namespace CIG
 {
-    class ChessmanIndex
+    class ChessmanIndex : public Object
     {
         public:
-            ChessmanIndex(void);
+            ChessmanIndex(void) {};
             ChessmanIndex(unsigned short p, unsigned short i);
             ChessmanIndex(const ChessmanIndex &ci);
-            ~ChessmanIndex(void);
+            virtual ~ChessmanIndex() {};
             void operator = (const ChessmanIndex &ci);
 
             unsigned short player;

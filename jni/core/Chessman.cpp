@@ -14,7 +14,7 @@ bool CIG::Chessman::onPickIntent()
     }
 }
 
-bool CIG::Chessman::onPutIntent(PointOrVector p)
+bool CIG::Chessman::onPutIntent(PointOrVectorS p)
 {
     if(status == OFF_BOARD)
     {
@@ -41,7 +41,7 @@ bool CIG::Chessman::onCapturedIntent()
     }
 }
 
-bool CIG::Chessman::onPromotionIntent(CHESSMAN_TYPES t)
+bool CIG::Chessman::onPromotionIntent(short t)
 {
     chessmanType = t;
     return true;

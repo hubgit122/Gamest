@@ -7,7 +7,7 @@ CIG::Motion::Motion()
 
 }
 
-CIG::Motion::Motion(ChessmanIndex ci, OPERATIONS op, PointOrVector dist /*= 0*/, PointOrVector pre /*= 0*/)
+CIG::Motion::Motion(ChessmanIndex ci, unsigned short op, PointOrVectorS dist /*= 0*/, PointOrVectorS pre /*= 0*/)
     : chessmanIndex(ci), operation(op), distination(dist), savedCoodinate(pre)
 {
 }

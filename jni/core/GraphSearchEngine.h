@@ -11,7 +11,7 @@ namespace CIG
     class GraphSearchEngine
     {
         public:
-            static void makeBestMove(ChessboardInterface *cb, void *op);
+            static void makeBestMove(Chessboard *cb, void *op);
             static void setTimeOut(unsigned long t);
             static void setLimitDepth(int d);
 
@@ -22,7 +22,7 @@ namespace CIG
             static int rootDepth;
             static unsigned long beginTime;
             static unsigned long timeout;
-            static ChessboardInterface *chessboard;
+            static Chessboard *chessboard;
             static Move bestMove;
     };
 
@@ -44,7 +44,7 @@ namespace CIG
     {
         int vl, vlBest;
         Move nowBestMove;
-        ChessboardInterface &nowBoard = *chessboard;
+        Chessboard &nowBoard = *chessboard;
         // 一个Alpha-Beta完全搜索分为以下几个阶段
         // 1. 到达水平线，则返回局面评价值
         unsigned tmp = clock();
@@ -55,7 +55,7 @@ namespace CIG
         }
 
         // 2. 初始化最佳值和最佳走法
-        vlBest = -ChessboardInterface::MATE_VALUE; // 这样可以知道，是否一个走法都没走过(杀棋)
+        vlBest = -Chessboard::MATE_VALUE; // 这样可以知道，是否一个走法都没走过(杀棋)
         //bestMove.clear();           // 这样可以知道，是否搜索到了Beta走法或PV走法，以便保存到历史表
         // 3. 生成全部走法，并根据历史表排序         如果被将死, 没有棋可以走.
         MotionGenerator mg(nowBoard);
@@ -93,7 +93,7 @@ namespace CIG
         }
 
         // 5. 所有走法都搜索完了，把最佳走法(不能是Alpha走法)保存到历史表，返回最佳值
-        if(vlBest <= -ChessboardInterface::WIN_VALUE)
+        if(vlBest <= -Chessboard::WIN_VALUE)
         {
             // 如果是杀棋，就根据杀棋步数给出评价
             return nowBoard.getEvaluation((unsigned short)(nowBoard.nowTurn - 1 + ((-!(long long)nowBoard.nowTurn)&PLAYER_NUM))) - nowBoard.nowRound;
@@ -117,13 +117,13 @@ namespace CIG
     }
 
     template <unsigned short PLAYER_NUM>
-    void GraphSearchEngine<PLAYER_NUM>::makeBestMove(ChessboardInterface *chessboard, void *move)
+    void GraphSearchEngine<PLAYER_NUM>::makeBestMove(Chessboard *chessboard, void *move)
     {
         beginTime = clock();
         bestMove.clear();
         GraphSearchEngine<PLAYER_NUM>::chessboard = chessboard;
         rootDepth = limitDepth;
-        int vl = alphaBetaSearch(-ChessboardInterface::MATE_VALUE, ChessboardInterface::MATE_VALUE, limitDepth);
+        int vl = alphaBetaSearch(-Chessboard::MATE_VALUE, Chessboard::MATE_VALUE, limitDepth);
         (*((Move *)move)).forceCopyFrom(bestMove);
     }
 
@@ -160,7 +160,7 @@ namespace CIG
     template <unsigned short PLAYER_NUM>
     unsigned long GraphSearchEngine<PLAYER_NUM>::timeout;
     template <unsigned short PLAYER_NUM>
-    ChessboardInterface *GraphSearchEngine<PLAYER_NUM>::chessboard = NULL;
+    Chessboard *GraphSearchEngine<PLAYER_NUM>::chessboard = NULL;
     template <unsigned short PLAYER_NUM>
     CIG::Move GraphSearchEngine<PLAYER_NUM>::bestMove;
 }

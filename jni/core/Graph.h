@@ -1,40 +1,42 @@
-#include <vector>
-#include <list>
+#include "ListJSON.h"
+#include "VectorJSON.h"
+#include "MyJSONNode.h"
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 namespace CIG
 {
     //邻接表表示的图
     template<class T>
-    class Graph: public Object
+    class Graph : public VectorJSON<ListJSON<T>>
     {
-    public:
-        vector<list<T>> g;
-        Graph(){}
-        Graph(const vector<T>& nodes)
-        {
-            for (int i=0; i<nodes.size(); ++i)
+        public:
+            Graph(const MyJSONNode &json) : VectorJSON<ListJSON<T>>(json) {}
+            Graph(const vector<T> &nodes)
             {
-                g[i].push_front(nodes[i]);
-            }
-        }
-
-        void addNode(const T& t)
-        {
-            g.push_back(t);
-        }
-        
-        void addEdge(const T&u, const T&v)     //u->v
-        {
-            for (int i=0; i<g.size(); ++i)
-            {
-                if (g[i].front()==u)
+                for(int i = 0; i < nodes.size(); ++i)
                 {
-                    g[i].push_back(v);
-                    break;
+                    (*this)[i].push_front(nodes[i]);
                 }
             }
-        }
+
+            void addNode(const T &t)
+            {
+                ListJSON<T> l;
+                l.push_back(t);
+                (*this).push_back(l);
+            }
+
+            void addEdge(const T &u, const T &v)   //u->v
+            {
+                for(int i = 0; i < (*this).size(); ++i)
+                {
+                    if((*this)[i].front() == u)
+                    {
+                        (*this)[i].push_back(v);
+                        break;
+                    }
+                }
+            }
     };
 }
 #endif

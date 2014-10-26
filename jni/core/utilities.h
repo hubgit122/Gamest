@@ -15,11 +15,13 @@
 #include <map>
 #include <iosfwd>
 
-using namespace std;
-
+#include "MyJSONNode.h"
 #include "types.h"
 #include "../libjson/libjson.h"
 #include "C:\Program Files\Java\jdk1.8.0_11\include\jni.h"
+
+using namespace std;
+using namespace CIG;
 
 /*************************************************************************
 调试开关
@@ -48,170 +50,10 @@ using namespace std;
 /*************************************************************************
     辅助类和辅助函数
     **************************************************************************/
-struct PointOrVector_Float
-{
-    float x[2];
-
-    PointOrVector_Float()
-    {
-        this->x[0] = 0;
-        this->x[1] = 0;
-    }
-
-    PointOrVector_Float(float x, float y)
-    {
-        this->x[0] = x;
-        this->x[1] = y;
-    }
-
-    float operator*(const PointOrVector_Float &p)
-    {
-        return x[0] * p.x[0] + x[1] * p.x[1];
-    }
-
-    void operator = (const PointOrVector_Float &p)
-    {
-        memcpy(x, p.x, sizeof(float) << 1);
-    }
-
-    friend PointOrVector_Float operator*(int lambda, const PointOrVector_Float &p)
-    {
-        return (float)lambda * p;
-    }
-
-    friend PointOrVector_Float operator*(float lambda, const PointOrVector_Float &p)
-    {
-        PointOrVector_Float temp = p;
-
-        temp.x[0] *= lambda;
-        temp.x[1] *= lambda;
-
-        return temp;
-    }
-
-    PointOrVector_Float operator- (const PointOrVector_Float &p)
-    {
-        PointOrVector_Float temp = *this;
-
-        temp.x[0] -= p.x[0];
-        temp.x[1] -= p.x[1];
-
-        return temp;
-    }
-
-    PointOrVector_Float operator+ (const PointOrVector_Float &p)
-    {
-        PointOrVector_Float temp = *this;
-
-        temp.x[0] += p.x[0];
-        temp.x[1] += p.x[1];
-
-        return temp;
-    }
-
-    friend ostringstream &operator<<(ostringstream &oss, const PointOrVector_Float &p)                      ///不加引用符号, 就会调用拷贝构造函数, id管理得乱七八糟.
-    {
-        oss << "( " << p.x[0] << " , " << p.x[1] << " ) \n";
-        return oss;
-    }
-};
-
-struct PointOrVector
-{
-    short x[2];
-
-    PointOrVector()
-    {
-        memset(x, -1, sizeof(unsigned short) << 1);             // TO-DO 注意这里改变了象棋的点默认为0,0的假设, 应该不会出问题, 在联调的时候可以注意一下
-    }
-
-    PointOrVector(unsigned x, unsigned y)
-    {
-        this->x[0] = x;
-        this->x[1] = y;
-    }
-
-    PointOrVector(unsigned xy)
-    {
-        *(unsigned *)(this->x) = xy;
-    }
-
-    short &operator[](bool index)
-    {
-        return x[index];
-    }
-
-    const short &operator[](bool index)const
-    {
-        return x[index];
-    }
-
-    bool operator==(const PointOrVector &p)const
-    {
-        return (*(unsigned *)this->x == *(unsigned *)(p.x));
-    }
-
-    bool operator!=(const PointOrVector &p)const
-    {
-        return !(*this == p);
-    }
-
-    friend PointOrVector operator*(int lambda, const PointOrVector &p)
-    {
-        PointOrVector temp = p;
-
-        temp.x[0] *= lambda;
-        temp.x[1] *= lambda;
-
-        return temp;
-    }
-    PointOrVector operator- (const PointOrVector &p)const
-    {
-        PointOrVector temp = *this;
-
-        //*(unsigned*)temp.x -= *(unsigned*)(p.x);              //涉及到进位时这样计算失败.
-        temp.x[0] -= p.x[0];
-        temp.x[1] -= p.x[1];
-        return temp;
-    }
-
-    PointOrVector &operator+=(const PointOrVector &p)
-    {
-        this->x[0] += p[0];
-        this->x[1] += p[1];
-        return *this;
-    }
-
-    PointOrVector operator+ (const PointOrVector &p)const
-    {
-        PointOrVector temp = *this;
-
-        temp.x[0] += p.x[0];
-        temp.x[1] += p.x[1];
-
-        //*(unsigned*)temp.x += *(unsigned*)(p.x);          //在低位有负数的时候这种加法失败.
-        return temp;
-    }
-
-    friend ostringstream &operator<<(ostringstream &oss, const PointOrVector &p)                        ///不加引用符号, 就会调用拷贝构造函数, id管理得乱七八糟.
-    {
-        oss << "( " << p.x[0] << " , " << p.x[1] << " ) \n";
-        return oss;
-    }
-};
-
-struct Line
-{
-    PointOrVector p0, p1;
-    Line(int x0, int y0, int x1, int y1): p0(x0, y0), p1(x1, y1)
-    {
-    }
-};
 
 int roundInt(float f);
-
-void parseBoolArray(const JSONNode &json, const string &s, vector<bool>& v);
-void parseIntArray(const JSONNode &json, const string &s, vector<int>& v);
+void parseBoolArray(const MyJSONNode &json, const string &s, vector<bool> &v);
+void parseIntArray(const MyJSONNode &json, const string &s, vector<int> &v);
 
 template<class T>
 void QuickSort(T a[], unsigned n);

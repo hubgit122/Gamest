@@ -10,34 +10,33 @@
 #include "utilities.h"
 #include "Player.h"
 #include "Board.h"
-#include "ChessboardInterface.h"
+#include "PointOrVectorS.h"
 
 namespace CIG
 {
-    class Chessboard : public ChessboardInterface
+    class ChessGame;
+    class Chessboard : public Object
     {
-            class Game;
-        private:
-            Chessboard() {};
         public:
-            Chessboard(const Game &g);
+            Chessboard(const ChessGame &g);
             Chessboard(const Chessboard &cb);
+            Chessboard(const MyJSONNode &json, const ChessGame &g);
             virtual ~Chessboard() {};
             void operator=(const Chessboard &cb);
 
-            ChessGame*game;
-            Array<Player, INI_PLAYER_ARRAY_SIZE, 0> &players;
+            const ChessGame &game;
+            const Array<Player, INI_PLAYER_ARRAY_SIZE, 0> &players;
             Array<Motion, INT_BANNED_MOTION_SIZE, 0> currentBannedMotions;
             Array<Chessman *, INI_CHESSMAN_GROUP_SIZE, 0> pickedChessman;
             Board<Chessman *> chessmanBoard;
-            
-            unsigned short INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, MAX_PLAYER_NUM;
-            unsigned nowRound;
-            unsigned short nowTurn;
-            vector<int> evaluations;
-            vector<bool> loose;                  //在搜索时辅助判断是否获胜, 在防止先后走出获胜走法时起作用
-            vector<bool> win;                        //在搜索时辅助判断是否获胜, 在防止先后走出获胜走法时起作用
 
+            unsigned short INI_BOARD_WIDTH_LOG2, INI_BOARD_HEIGHT_LOG2, MAX_PLAYER_NUM;
+            unsigned short nowRound;
+            unsigned short nowTurn;
+            VectorJSON<int> evaluations;
+            VectorJSON<bool> loose;                  //在搜索时辅助判断是否获胜, 在防止先后走出获胜走法时起作用
+            VectorJSON<bool> win;                        //在搜索时辅助判断是否获胜, 在防止先后走出获胜走法时起作用
+            unsigned long MATE_VALUE = 10000000;
             //static const int GRADES[3][6];
 
             //************************************
@@ -46,7 +45,7 @@ namespace CIG
             // Access:    virtual public
             // Returns:   bool
             // Qualifier:
-            // Parameter: PointOrVector p, Chessman& c, CIGConfig::CHESSMAN_TYPES t
+            // Parameter: PointOrVector p, Chessman& c, CIGConfig::short t
             // 尝试操作, 并返回是否操作成功, 如果不成功, 则本次调用不会对棋盘产生影响, 如果操作成功, 则会保存操作的结果.
             // 默认配置为:
             // 对于满足"不动别人的棋子, 不吃自己的棋子"条件的尝试, 调整棋盘状态, 更新评估值, 返回true;
@@ -54,8 +53,8 @@ namespace CIG
             // 当然也可以在自己的函数里调用本类的函数, 在并配置新加入的规则.
             // 注意: 因为使用了动态容器, 所有的棋子指针必须在使用时重新计算. 原则是: 当且仅当得到指针后有过增加棋子的操作(无论是否又删除了棋子)
             //************************************
-            virtual bool onPickIntent(PointOrVector p, bool refreshEvaluations = false);
-            virtual bool onPickIntent(Chessman *c , bool refreshEvaluations = false);
+            virtual bool onPickIntent(PointOrVectorS p, bool refreshEvaluations = false);
+            virtual bool onPickIntent(Chessman *c, bool refreshEvaluations = false);
             //************************************
             // Method:    onAddIntent
             // FullName:  Chessboard::onAddIntent
@@ -65,11 +64,11 @@ namespace CIG
             // Parameter: PointOrVector p
             // 注意用法: 预告在某处增加一枚棋子, 返回棋子的指针, 但是还没有真正在游戏中放下这个子.
             //************************************
-            virtual bool onAddIntent(PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false);
-            virtual bool onPutIntent(Chessman *c, PointOrVector p = PointOrVector(-1, -1), bool refreshEvaluations = false);
-            virtual bool onCaptureIntent(Chessman *c, PointOrVector p, bool refreshEvaluations = false);
-            virtual bool onPromotionIntent(Chessman *c, CHESSMAN_TYPES t, bool refreshEvaluations = false);
-            virtual bool onPromotionIntent(PointOrVector p, CHESSMAN_TYPES t, bool refreshEvaluations = false);
+            virtual bool onAddIntent(PointOrVectorS p = PointOrVectorS(-1, -1), bool refreshEvaluations = false);
+            virtual bool onPutIntent(Chessman *c, PointOrVectorS p = PointOrVectorS(-1, -1), bool refreshEvaluations = false);
+            virtual bool onCaptureIntent(Chessman *c, PointOrVectorS p, bool refreshEvaluations = false);
+            virtual bool onPromotionIntent(Chessman *c, short t, bool refreshEvaluations = false);
+            virtual bool onPromotionIntent(PointOrVectorS p, short t, bool refreshEvaluations = false);
             virtual bool onMoveIntent(const Move &move, bool refreshEvaluations = false);
             virtual bool onWholeMoveIntent(const Move &move, bool refreshEvaluations = false);
             virtual bool onMotionIntent(const Motion &operation, bool refreshEvaluations = false);
@@ -88,12 +87,12 @@ namespace CIG
             // 还要特别注意undoPut的默认实现并没有进行棋子坐标的恢复. 也就是说在执行put和unput之后, 得到的结果是其余不变, 但是棋子的坐标从pick的发生地变为put的目的地.
             // 如果要实现棋子坐标恢复的话需要增加很多结构, 并不是直接保存一个值就行的. 因为棋子可能经历类似put, put, unput, unput的过程.
             //************************************
-            virtual void undoAdd(PointOrVector p, bool refreshEvaluations = false);
-            virtual void undoPick(Chessman *c , PointOrVector p, bool refreshEvaluations = false);
-            virtual void undoPut(Chessman *c, PointOrVector previousP, bool refreshEvaluations = false);
+            virtual void undoAdd(PointOrVectorS p, bool refreshEvaluations = false);
+            virtual void undoPick(Chessman *c, PointOrVectorS p, bool refreshEvaluations = false);
+            virtual void undoPut(Chessman *c, PointOrVectorS previousP, bool refreshEvaluations = false);
             virtual void undoCaptured(Chessman *c, bool refreshEvaluations = false);
-            virtual void undoPromotion(Chessman *c, CHESSMAN_TYPES t, bool refreshEvaluations = false);
-            virtual void undoPromotion(PointOrVector p, CHESSMAN_TYPES t, bool refreshEvaluations = false);
+            virtual void undoPromotion(Chessman *c, short t, bool refreshEvaluations = false);
+            virtual void undoPromotion(PointOrVectorS p, short t, bool refreshEvaluations = false);
             virtual void undoMove(const Move &move, bool refreshEvaluations = false);
             virtual void undoWholeMove(const Move &move, bool refreshEvaluations = false);
             virtual void undoMotion(const Motion &operation, bool refreshEvaluations = false);
@@ -105,15 +104,12 @@ namespace CIG
             virtual int getEvaluation(unsigned short p)const;
             virtual int getEvaluation()const;
 
-            virtual Chessman *operator[](PointOrVector p)const;
-            virtual bool beyondBoardRange(PointOrVector &p)const;
+            virtual Chessman *operator[](PointOrVectorS p)const;
+            virtual bool beyondBoardRange(PointOrVectorS &p)const;
 
             inline virtual string toJSON()const;
-
-            Chessboard(const JSONNode &json, const Game &g);
-
     };
-
+}
 #endif /*__TOTALCHESSBOARD_H_*/
 
 

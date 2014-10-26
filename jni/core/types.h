@@ -20,28 +20,9 @@ namespace CIG
 
         GAME_TYPE_NUM
     };
-
-    unsigned PLAYER_NUMS[GAME_TYPE_NUM] =
+    enum BASIC_OPERATION_ID             //包含了大多数棋的走法, 需要时可以从0开始扩充. 定义这个的目的是添加比较通用的走棋代码.
     {
-        6,
-        2,
-        2,
-        2,
-        2,
-        4,
-        2,
-    };
-
-    enum CHESSMAN_TYPES
-    {
-        NOCHESSMAN = -1,
-        CHESS,                                      //跳棋只有一种棋子
-        CHESSMAN_TYPE_NUM,          //总数
-    };
-
-    enum OPERATIONS
-    {
-        NOMORE,                 //作为走法生成器返回的提示语: 无更多操作, 请回退搜索.
+        NOMORE = 1024,                 //作为走法生成器返回的提示语: 无更多操作, 请回退搜索.
         BEGIN,
         ADD,                        //增加一个棋子
         PICK,                       //拿起
@@ -52,16 +33,10 @@ namespace CIG
         END,                            //作为走法生成器返回的提示语: 一条搜索路径结束, 请保存结果并回退搜索.
     };
 
-    char *OPERATION_NAME[END] =
+    enum BASIC_CHESS_TYPE
     {
-        "NOMORE",
-        "BEGIN",
-        "ADD",
-        "PICK",
-        "PUT",
-        "CAPTURE",
-        "PROMOTION",
-        "DECOVER",
+        MONO_CHESS,
+        KING
     };
 
     enum CHESSMAN_STATUS
