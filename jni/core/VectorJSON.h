@@ -33,6 +33,19 @@ namespace CIG
 
             inline virtual ~VectorJSON() {}
 
+            vector::const_iterator find(const T &val)cosnt
+            {
+                for(vector::const_iterator it = this->begin(); it != this->end(); ++it)
+                {
+                    if(*it == val)
+                    {
+                        return it;
+                    }
+                }
+
+                return this->end();
+            }
+
             inline virtual string toJSON()const
             {
                 ostringstream oss;

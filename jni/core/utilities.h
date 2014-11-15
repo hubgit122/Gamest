@@ -47,6 +47,11 @@ using namespace CIG;
 #define JSON_ARRAY(a) "[" a <<"]"
 #define JSON_OBJECT(a) "{" a <<"}"
 
+#ifndef likely
+#define likely(x) (x)
+#define unlikely(x) (x)
+#endif
+
 /*************************************************************************
     ¸¨ÖúÀàºÍ¸¨Öúº¯Êý
     **************************************************************************/

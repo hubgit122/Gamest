@@ -207,9 +207,6 @@ namespace CIG
             case CAPTURE:
                 return onCaptureIntent(pickedChessman[0], op.distination, refreshEvaluations);
 
-            case PROMOTION:
-                return false;
-
             default:
                 return false;
         }

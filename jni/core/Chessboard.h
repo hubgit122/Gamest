@@ -36,7 +36,8 @@ namespace CIG
             VectorJSON<int> evaluations;
             VectorJSON<bool> loose;                  //在搜索时辅助判断是否获胜, 在防止先后走出获胜走法时起作用
             VectorJSON<bool> win;                        //在搜索时辅助判断是否获胜, 在防止先后走出获胜走法时起作用
-            unsigned long MATE_VALUE = 10000000;
+            unsigned long MATE_VALUE = 100000000;
+            unsigned long WIN_VALUE = MATE_VALUE >> 1;
             //static const int GRADES[3][6];
 
             //************************************

@@ -10,6 +10,7 @@ namespace CIG
     class Graph : public VectorJSON<ListJSON<T>>
     {
         public:
+            Graph() {}
             Graph(const MyJSONNode &json) : VectorJSON<ListJSON<T>>(json) {}
             Graph(const vector<T> &nodes)
             {

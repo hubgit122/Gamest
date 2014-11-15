@@ -14,44 +14,49 @@ namespace CIG
             };
             virtual ~MyJSONNode() {};
 
-            operator GAME_TYPE()const
+            inline operator GAME_TYPE()const
             {
                 return (GAME_TYPE)as_int();
             }
 
-            operator bool()const
+            inline operator bool()const
             {
                 return as_bool();
             }
 
-            operator unsigned() const
+            inline operator unsigned long()const
             {
                 return as_int();
             }
 
-            operator short()const
+            inline operator unsigned() const
             {
                 return as_int();
             }
-            operator unsigned short()const
+
+            inline operator short()const
             {
                 return as_int();
             }
-            operator double()const
+            inline operator unsigned short()const
+            {
+                return as_int();
+            }
+            inline operator double()const
             {
                 return (double)as_float();
             }
 
-            operator float()const
+            inline operator float()const
             {
                 return as_float();
             }
 
-            operator int()const
+            inline operator int()const
             {
                 return as_int();
             }
-            operator string()const
+            inline operator string()const
             {
                 return as_string();
             }

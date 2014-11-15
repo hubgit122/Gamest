@@ -130,6 +130,7 @@ namespace CIG
         JSON_INI(addtionalLines), JSON_INI(additionalCircleRadias), JSON_INI(addtionalRectangles), JSON_INI(additionalImages),
         JSON_INI(ROUND_LIMIT), JSON_INI(TIME_LIMIT)
     {
+        this->checkConstrains();
         this->assert(compileGUI());
     }
 
@@ -141,6 +142,14 @@ namespace CIG
         {
             ostringstream oss;
             oss << "系统字长与期望不同. \n" << "sizeof(U64) = " << sizeof(U64) << " != 8";
+            informError(oss.str());
+            return false;
+        }
+
+        if(operationGraph.names[0] != "NOMORE" || operationGraph.names[1] != "BEGIN" || operationGraph.names[2] != "ADD" || operationGraph.names[3] != "PICK" || operationGraph.names[4] != "PUT" || operationGraph.names[5] != "CAPTURE" || operationGraph.names[6] != "PROMOTION" || operationGraph.names[7] != "DECOVER" || operationGraph.names[8] != "END" || operationGraph.names[9] != "SURRENDER")
+        {
+            ostringstream oss;
+            oss << "请在operationGraph的开始加入默认走法, 并保证如下顺序: \n" << "NOMORE BEGIN ADD PICK PUT CAPTURE PROMOTION DECOVER END SURRENDER";
             informError(oss.str());
             return false;
         }

@@ -22,7 +22,7 @@ namespace CIG
     };
     enum BASIC_OPERATION_ID             //包含了大多数棋的走法, 需要时可以从0开始扩充. 定义这个的目的是添加比较通用的走棋代码.
     {
-        NOMORE = 1024,                 //作为走法生成器返回的提示语: 无更多操作, 请回退搜索.
+        NOMORE,                 //作为走法生成器返回的提示语: 无更多操作, 请回退搜索.
         BEGIN,
         ADD,                        //增加一个棋子
         PICK,                       //拿起
@@ -31,6 +31,8 @@ namespace CIG
         PROMOTION,          //升变
         DECOVER,                //掀开
         END,                            //作为走法生成器返回的提示语: 一条搜索路径结束, 请保存结果并回退搜索.
+        SURRENDER,           //认输
+        USER_OPERATION_BASE,
     };
 
     enum BASIC_CHESS_TYPE

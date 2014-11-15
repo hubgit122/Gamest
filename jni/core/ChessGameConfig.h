@@ -3,7 +3,7 @@
 using namespace std;
 #include "utilities.h"
 #include "Board.h"
-#include "GraphWithID.h"
+#include "GraphWithNameAndID.h"
 #include "Array.h"
 #include "MapJSON.h"
 #include "PointOrVector.h"
@@ -37,7 +37,7 @@ namespace CIG
             //游戏种类相关配置
             Board<bool> boardRange;
             Array <Board<short>, INI_PLAYER_ARRAY_SIZE, 0> iniBoards;
-            GraphWithID<Operation> operationGraph;
+            GraphWithNameAndID operationGraph;
             unsigned short INI_BOARD_WIDTH_LOG2;
             unsigned short INI_BOARD_HEIGHT_LOG2;
             unsigned short MAX_PLAYER_NUM;
