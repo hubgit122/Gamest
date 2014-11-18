@@ -1,0 +1,56 @@
+{
+    "defined": {}, 
+    "deleteComment": {
+        "c": 0, 
+        "classpath": 0, 
+        "cpp": 0, 
+        "h": 0, 
+        "java": 0, 
+        "project": 0, 
+        "xml": 0
+    }, 
+    "exclude": {
+        "All": [
+            "jni/core/jniCore"
+        ], 
+        "Android": [
+            "libs/sqlite-jdbc.*"
+        ], 
+        "Java": [
+            "libs/sqldroid.*"
+        ]
+    }, 
+    "extract": {
+        "All": [
+            "src/.*", 
+            "libs/.*", 
+            "assets/.*", 
+            "jni/.*", 
+            "\\.classpath", 
+            "\\.project"
+        ], 
+        "Android": [
+            "res/.*", 
+            "gen/.*", 
+            "androidmanifest\\.xml", 
+            "proguard\\.cfg", 
+            "project\\.properties"
+        ], 
+        "Java": []
+    }, 
+    "lineCommentBeginString": {
+        "c": "//", 
+        "classpath": "<!--", 
+        "cpp": "//", 
+        "h": "//", 
+        "java": "//", 
+        "project": "<!--", 
+        "xml": "<!--"
+    }, 
+    "platform": "Android", 
+    "process": [
+        "src/.*\\.java", 
+        "\\.classpath", 
+        "\\.project"
+    ]
+}

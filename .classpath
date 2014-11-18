@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/websocket"/>
+    <!--##platform Android-->
+        <classpathentry kind="src" path="gen"/>
+        <classpathentry kind="output" path="bin/classes"/>
+        <classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+        <classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+        <classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+    <!--##end-->
+    <classpathentry kind="output" path="bin/classes"/> <!--#platform Java-->
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/base-64"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/java_websocket"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javabase64"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqldroid"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqlite-jdbc"/>
-	<classpathentry kind="output" path="bin/classes"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqldroid"/> <!--#platform Android-->
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqlite-jdbc"/> <!--#platform Java-->
 </classpath>
