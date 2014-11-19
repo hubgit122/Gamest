@@ -9,10 +9,11 @@
 
 namespace CIG
 {
-    class Motion
+    class Motion: public Object
     {
         public:
             Motion();
+            Motion(const MyJSONNode &json) : JSON_INI(operation), JSON_INI(chessmanIndex), JSON_INI(distination), JSON_INI(savedCoodinate) {}
             Motion(const Motion &op);
             Motion(ChessmanIndex ci, unsigned short op, PointOrVectorS dist = 0, PointOrVectorS pre = 0);
             virtual ~Motion();

@@ -9,6 +9,7 @@ namespace CIG
     class ListJSON : public list<T>, public Object
     {
         public:
+            ListJSON() {}
             ListJSON(const list &l) : list(l) {}
             ListJSON(const MyJSONNode &json)
             {

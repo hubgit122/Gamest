@@ -23,6 +23,7 @@ namespace CIG
                 : chessmanType(t), coordinate(c), chessmanIndex(p, index), status(s)
             {
             }
+            inline Chessman(const MyJSONNode &json) : JSON_INI(chessmanType), JSON_INI(coordinate), JSON_INI(chessmanIndex), JSON_INI(status) {}
             short chessmanType;
             PointOrVectorS coordinate;
             ChessmanIndex chessmanIndex;

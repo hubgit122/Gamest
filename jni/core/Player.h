@@ -17,23 +17,21 @@ namespace CIG
     {
         public:
             Player();
-            Player(unsigned short p, void(*makeBestMove_)(Chessboard *cb, void *) /*= GUI::askForMove*/, Chessboard *cb = NULL);
-            Player(const Player &p, Chessboard *cb = NULL);
+            Player(const MyJSONNode &json) : JSON_INI(index) {}
+            Player(unsigned short p, string(*makeBestMove_)(string) /*= GUI::askForMove*/);
+            Player(const Player &p);
             virtual ~Player();
             inline virtual string toJSON()const
             {
                 ostringstream oss;
-                oss << JSON_OBJECT(JSON_KEYVALUE(index) JSON_COMMA JSON_KEYVALUE(ownedChessmans));
+                oss << JSON_OBJECT(JSON_KEYVALUE(index));
                 return oss.str();
             }
 
             void operator = (const Player &p);
 
             unsigned short index;
-            Stack<Chessman, INI_CHESSMAN_GROUP_SIZE, 0> ownedChessmans;
-            Chessboard *chessboard;
-
-            void (*makeBestMove)(Chessboard *cb, void *op);
+            string(*makeBestMove)(string);
     };
 }
 

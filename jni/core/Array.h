@@ -1,4 +1,3 @@
-
 #ifndef __ARRAY_H__
 #define __ARRAY_H__
 #include "utilities.h"
@@ -13,28 +12,28 @@ namespace CIG
             inline Array();
             inline Array(const Array &a);
             inline Array(const MyJSONNode &json);
-            inline virtual ~Array();
+            inline  virtual  virtual ~Array();
 
             T *elements;
             unsigned short size;
             unsigned short capacity;
 
-            inline void operator = (const Array<T, INI_DEPTH, DEPTH_INCRE> &a);
-            inline void forceCopyFrom(const Array<T, INI_DEPTH, DEPTH_INCRE> &a);
+            inline virtual  void operator = (const Array<T, INI_DEPTH, DEPTH_INCRE> &a);
+            inline virtual  void forceCopyFrom(const Array<T, INI_DEPTH, DEPTH_INCRE> &a);
 
-            inline bool contains(const T &e)const;
-            inline T *add(const T &element);
-            inline void addAt(short index, const T e);
-            inline void deleteAtNoReturn(short index);
-            inline T deleteAtThenGet(short index);
-            inline T &at(short index)const;
-            inline T &operator[](short index)const;
+            inline virtual  bool contains(const T &e)const;
+            inline virtual  T *add(const T &element);
+            inline virtual  void addAt(short index, const T e);
+            inline virtual  void deleteAtNoReturn(short index);
+            inline virtual  T deleteAtThenGet(short index);
+            inline virtual  T &at(short index)const;
+            inline virtual  T &operator[](short index)const;
 
-            inline void increaseCapacity();
-            inline void memAlloc();
-            inline void memRealloc();
-            inline void clearMem();
-            inline void clear();
+            inline virtual  void increaseCapacity();
+            inline virtual  void memAlloc();
+            inline virtual  void memRealloc();
+            inline virtual  void clearMem();
+            inline virtual  void clear();
             inline virtual string toJSON()const;
     };
 
@@ -64,12 +63,12 @@ namespace CIG
         ostringstream oss;
         oss << "[";
 
-        for(int i = 0; i < this.size;)
+        for(int i = 0; i < size;)
         {
             oss << (typeid(T) == typeid(string) ? "\"" : "") << (*this)[i] << (typeid(T) == typeid(string) ? "\"" : "");
-            ++i
+            ++i;
 
-            if(i < this.size)
+            if(i < size)
             {
                 oss << ",";
             }

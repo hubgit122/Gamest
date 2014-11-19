@@ -10,6 +10,7 @@ using namespace std;
 #include "Line.h"
 #include "Operation.h"
 #include "VectorJSON.h"
+#include "DiaplayableDescription.h"
 
 namespace CIG
 {
@@ -63,8 +64,8 @@ namespace CIG
             VectorJSON<Line> addtionalLines;
             VectorJSON<PointOrVectorS> additionalCircles;
             float additionalCircleRadias;
-            VectorJSON<pair<PointOrVectorS, PointOrVectorS>> addtionalRectangles;
-            VectorJSON<pair<PointOrVectorS, string>> additionalImages;
+            VectorJSON<Line> addtionalRectangles;
+            VectorJSON<DiaplayableDescription> additionalImages;
 
             //内部管理的属性
             PointOrVector<float> Vx;
@@ -130,7 +131,7 @@ namespace CIG
 //    roundChessman = true;
 //    namedChessman = false;
 //    chessmanRect = PointOrVector<float>(0.9 * lengthOfLattticeX, 0.9 * lengthOfLattticeY);
-//    chessmanNames.insert(pair<short, string>(CHESS, " "));
+//    chessmanNames.insert(pair<short, string>(MONO_CHESS, " "));
 //
 //    LINE_DIRECTION.clear();
 //    LINE_DIRECTION.push_back(PointOrVector(1, 0));

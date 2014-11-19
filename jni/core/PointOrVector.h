@@ -28,10 +28,10 @@ namespace CIG
             {
                 try
                 {
-                    JSONNode::const_iterator it = json.begin();
-                    x[0] = T(*it);
+                    MyJSONNode::const_iterator it = json.begin();
+                    x[0] = T(MyJSONNode(*it));
                     it++;
-                    x[1] = T(*it);
+                    x[1] = T(MyJSONNode(*it));
                 }
                 catch(std::exception *e)
                 {

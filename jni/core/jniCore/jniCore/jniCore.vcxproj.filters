@@ -129,6 +129,12 @@
     <ClInclude Include="..\..\stringJSON.h">
       <Filter>头文件\core\utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\DiaplayableDescription.h">
+      <Filter>头文件\core\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ChessPlayer.h">
+      <Filter>头文件\core\ChessCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Chessman.cpp">
@@ -207,6 +213,9 @@
       <Filter>源文件\core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\GraphSearchEngine.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ChessPlayer.cpp">
       <Filter>源文件\core</Filter>
     </ClCompile>
   </ItemGroup>

@@ -10,6 +10,7 @@ namespace CIG
     class ChessmanIndex : public Object
     {
         public:
+            ChessmanIndex(const MyJSONNode &json) : JSON_INI(player), JSON_INI(index) {}
             ChessmanIndex(void) {};
             ChessmanIndex(unsigned short p, unsigned short i);
             ChessmanIndex(const ChessmanIndex &ci);

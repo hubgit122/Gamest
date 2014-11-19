@@ -39,7 +39,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Program Files\Java\jdk1.8.0_25\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -76,6 +78,8 @@
     <ClInclude Include="..\..\Chessman.h" />
     <ClInclude Include="..\..\ChessmanIndex.h" />
     <ClInclude Include="..\..\Board.h" />
+    <ClInclude Include="..\..\ChessPlayer.h" />
+    <ClInclude Include="..\..\DiaplayableDescription.h" />
     <ClInclude Include="..\..\Game.h" />
     <ClInclude Include="..\..\GameManager.h" />
     <ClInclude Include="..\..\GoBang.h" />
@@ -120,6 +124,7 @@
     <ClCompile Include="..\..\ChessGameConfig.cpp" />
     <ClCompile Include="..\..\Chessman.cpp" />
     <ClCompile Include="..\..\ChessmanIndex.cpp" />
+    <ClCompile Include="..\..\ChessPlayer.cpp" />
     <ClCompile Include="..\..\Game.cpp" />
     <ClCompile Include="..\..\GameManager.cpp" />
     <ClCompile Include="..\..\GraphSearchEngine.cpp" />

@@ -281,7 +281,7 @@ namespace CIG
 
                 switch(c->chessmanType)
                 {
-                    case CHESS:
+                    case MONO_CHESS:
                         testAndSave(s, chessboard.pickedChessman[-1], logMotionStack.top().distination, runningMotionStack);
                 }
             }

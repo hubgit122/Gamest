@@ -14,6 +14,10 @@ namespace CIG
             };
             virtual ~MyJSONNode() {};
 
+            inline operator CHESSMAN_STATUS()const
+            {
+                return (CHESSMAN_STATUS)as_int();
+            }
             inline operator GAME_TYPE()const
             {
                 return (GAME_TYPE)as_int();
