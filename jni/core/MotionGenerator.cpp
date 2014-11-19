@@ -3,6 +3,7 @@
 #include "Chessman.h"
 #include "ChessmanIndex.h"
 #include "MotionGenerator.h"
+#include "ChessGame.h"
 #include "Chessboard.h"
 namespace CIG
 {
@@ -27,8 +28,10 @@ namespace CIG
         while(!result);
     }
 
-    MotionGenerator::MotionGenerator(Chessboard &cb)
-        : chessboard(cb), config(cb.game.config) {}
+    MotionGenerator::MotionGenerator(Chessboard &cb) : chessboard(cb), config(cb.game.config)
+    {
+
+    }
 
     // 过程比较复杂:
     // 对于运行中搜索的一步, 若全局状态栈非空, 取定栈顶为当前状态,
@@ -39,183 +42,183 @@ namespace CIG
     // 初始条件配置: operationStack.push(CIGRuleConfig::BEGIN);
     bool MotionGenerator::generateRecursively(Move &logMotionStack, OperationStack &operationStack, bool guiInput /*= false*/)
     {
-        //根据输入选择当前的操作
-        if(guiInput)
-        {
-            if(config.operationGraph[logMotionStack.top().operation][0] == END && config.operationGraph[logMotionStack.top().operation][1] == NOMORE)
-            {
-                if(chessboard.onChangeTurn())
-                {
-                    chessboard.undoChangeTurn();
-                    moveStack.push(logMotionStack);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+        ////根据输入选择当前的操作
+        //if(guiInput)
+        //{
+        //    if(config.operationGraph[logMotionStack.top().operation][0] == END && config.operationGraph[logMotionStack.top().operation][1] == NOMORE)
+        //    {
+        //        if(chessboard.onChangeTurn())
+        //        {
+        //            chessboard.undoChangeTurn();
+        //            moveStack.push(logMotionStack);
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
 
-            bool result;
-            PointOrVectorS dist;
-            msg;
+        //    bool result;
+        //    PointOrVectorS dist;
+        //    msg;
 
-            if(logMotionStack.top().operation != BEGIN)
-            {
-                GUI::drawBoard(&chessboard, &logMotionStack);
-            }
+        //    if(logMotionStack.top().operation != BEGIN)
+        //    {
+        //        GUI::drawBoard(&chessboard, &logMotionStack);
+        //    }
 
-            GUI::getInput(dist, msg);
+        //    GUI::getInput(dist, msg);
 
-            switch(msg)
-            {
-                case CIG_END:
-                    for(int i = 0; (config.operationGraph[logMotionStack.top().operation][i] != NOMORE) && (i < END + 1); ++i)
-                    {
-                        if(config.operationGraph[logMotionStack.top().operation][i] == END)
-                        {
-                            if(chessboard.onChangeTurn())
-                            {
-                                chessboard.undoChangeTurn();
-                                moveStack.push(logMotionStack);
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
+        //    switch(msg)
+        //    {
+        //        case CIG_END:
+        //            for(int i = 0; (config.operationGraph[logMotionStack.top().operation][i] != NOMORE) && (i < END + 1); ++i)
+        //            {
+        //                if(config.operationGraph[logMotionStack.top().operation][i] == END)
+        //                {
+        //                    if(chessboard.onChangeTurn())
+        //                    {
+        //                        chessboard.undoChangeTurn();
+        //                        moveStack.push(logMotionStack);
+        //                        return true;
+        //                    }
+        //                    else
+        //                    {
+        //                        return false;
+        //                    }
+        //                }
+        //            }
 
-                    return false;
-                    break;
+        //            return false;
+        //            break;
 
-                case CIG_UNDO:
-                    return false;
-                    break;
+        //        case CIG_UNDO:
+        //            return false;
+        //            break;
 
-                case CIG_POINT:
-                {
-                    Move runningMotionStack;
-                    unsigned  op = operationStack.top();
-                    int i = 0;
+        //        case CIG_POINT:
+        //        {
+        //            Move runningMotionStack;
+        //            unsigned  op = operationStack.top();
+        //            int i = 0;
 
-                    for(; config.operationGraph[op][i] != NOMORE; ++i)
-                    {
-                        operationStack.push(config.operationGraph[op][i]);
+        //            for(; config.operationGraph[op][i] != NOMORE; ++i)
+        //            {
+        //                operationStack.push(config.operationGraph[op][i]);
 
-                        if(config.operationGraph[op][i] == END && logMotionStack.top().distination == dist)
-                        {
-                            if(chessboard.onChangeTurn())
-                            {
-                                chessboard.undoChangeTurn();
-                                moveStack.push(logMotionStack);
-                                return true;
-                            }
-                            else
-                            {
-                                return false;
-                            }
-                        }
-                    }
+        //                if(config.operationGraph[op][i] == END && logMotionStack.top().distination == dist)
+        //                {
+        //                    if(chessboard.onChangeTurn())
+        //                    {
+        //                        chessboard.undoChangeTurn();
+        //                        moveStack.push(logMotionStack);
+        //                        return true;
+        //                    }
+        //                    else
+        //                    {
+        //                        return false;
+        //                    }
+        //                }
+        //            }
 
-                    Motion tmpMotion;
-                    //在tempMotionStack里生成所有动作, 如果有END, 保存在moveStack里
-                    Move tempMotionStack = runningMotionStack;
-                    OperationStack tempOperationStack = operationStack;
-                    int j = i;
+        //            Motion tmpMotion;
+        //            //在tempMotionStack里生成所有动作, 如果有END, 保存在moveStack里
+        //            Move tempMotionStack = runningMotionStack;
+        //            OperationStack tempOperationStack = operationStack;
+        //            int j = i;
 
-                    for(; j > 0; --j)
-                    {
-                        generateMotionsForOneOperation(tempOperationStack, logMotionStack, tempMotionStack, guiInput);          //在runnningMotionStack和MoveStack中保存了下一步所有的可能结果.
-                        tempOperationStack.popNoReturn();
-                    }
+        //            for(; j > 0; --j)
+        //            {
+        //                generateMotionsForOneOperation(tempOperationStack, logMotionStack, tempMotionStack, guiInput);          //在runnningMotionStack和MoveStack中保存了下一步所有的可能结果.
+        //                tempOperationStack.popNoReturn();
+        //            }
 
-                    int count = 0;
+        //            int count = 0;
 
-                    for(int j = 0; j < tempMotionStack.size; ++j)
-                    {
-                        if(tempMotionStack[j].distination == dist)
-                        {
-                            tmpMotion = tempMotionStack[j];
-                            count++;
-                        }
-                    }
+        //            for(int j = 0; j < tempMotionStack.size; ++j)
+        //            {
+        //                if(tempMotionStack[j].distination == dist)
+        //                {
+        //                    tmpMotion = tempMotionStack[j];
+        //                    count++;
+        //                }
+        //            }
 
-                    if(count == 0)
-                    {
-                        result = false;
-                        break;
-                    }
-                    else if(count > 1)
-                    {
-                        ;//让玩家自己选择
-                        //tmpMotion =
-                    }
+        //            if(count == 0)
+        //            {
+        //                result = false;
+        //                break;
+        //            }
+        //            else if(count > 1)
+        //            {
+        //                ;//让玩家自己选择
+        //                //tmpMotion =
+        //            }
 
-                    result = false;
+        //            result = false;
 
-                    for(; i > 0; --i)
-                    {
-                        generateMotionsForOneOperation(operationStack, logMotionStack, runningMotionStack, guiInput);
+        //            for(; i > 0; --i)
+        //            {
+        //                generateMotionsForOneOperation(operationStack, logMotionStack, runningMotionStack, guiInput);
 
-                        while(runningMotionStack.size > 0)
-                        {
-                            if(runningMotionStack.top() == tmpMotion)
-                            {
-                                Motion &nowOperation = tmpMotion;
-                                logMotionStack.push(nowOperation);
-                                chessboard.onMotionIntent(nowOperation);
-                                result = generateRecursively(logMotionStack, operationStack, guiInput);
-                                chessboard.undoMotion(nowOperation);
-                                logMotionStack.popNoReturn();
-                            }
+        //                while(runningMotionStack.size > 0)
+        //                {
+        //                    if(runningMotionStack.top() == tmpMotion)
+        //                    {
+        //                        Motion &nowOperation = tmpMotion;
+        //                        logMotionStack.push(nowOperation);
+        //                        chessboard.onMotionIntent(nowOperation);
+        //                        result = generateRecursively(logMotionStack, operationStack, guiInput);
+        //                        chessboard.undoMotion(nowOperation);
+        //                        logMotionStack.popNoReturn();
+        //                    }
 
-                            runningMotionStack.popNoReturn();
-                        }
+        //                    runningMotionStack.popNoReturn();
+        //                }
 
-                        operationStack.popNoReturn();
-                    }
-                }
-                break;
+        //                operationStack.popNoReturn();
+        //            }
+        //        }
+        //        break;
 
-                default:
-                    break;
-            }
+        //        default:
+        //            break;
+        //    }
 
-            return result;
-        }
-        else
-        {
-            Move runningMotionStack;
-            unsigned  op = operationStack.top();
-            int i = 0;
+        //    return result;
+        //}
+        //else
+        //{
+        //    Move runningMotionStack;
+        //    unsigned  op = operationStack.top();
+        //    int i = 0;
 
-            for(; config.operationGraph[op][i] != NOMORE; ++i)
-            {
-                operationStack.push(config.operationGraph[op][i]);
-            }
+        //    for(; config.operationGraph[op][i] != NOMORE; ++i)
+        //    {
+        //        operationStack.push(config.operationGraph[op][i]);
+        //    }
 
-            for(; i > 0; --i)
-            {
-                generateMotionsForOneOperation(operationStack, logMotionStack, runningMotionStack);
+        //    for(; i > 0; --i)
+        //    {
+        //        generateMotionsForOneOperation(operationStack, logMotionStack, runningMotionStack);
 
-                while(runningMotionStack.size > 0)
-                {
-                    Motion &nowOperation = runningMotionStack.top();
-                    logMotionStack.push(nowOperation);
-                    chessboard.onMotionIntent(nowOperation);
-                    generateRecursively(logMotionStack, operationStack, guiInput);
-                    chessboard.undoMotion(nowOperation);
-                    logMotionStack.popNoReturn();
-                    runningMotionStack.popNoReturn();
-                }
+        //        while(runningMotionStack.size > 0)
+        //        {
+        //            Motion &nowOperation = runningMotionStack.top();
+        //            logMotionStack.push(nowOperation);
+        //            chessboard.onMotionIntent(nowOperation);
+        //            generateRecursively(logMotionStack, operationStack, guiInput);
+        //            chessboard.undoMotion(nowOperation);
+        //            logMotionStack.popNoReturn();
+        //            runningMotionStack.popNoReturn();
+        //        }
 
-                operationStack.popNoReturn();
-            }
+        //        operationStack.popNoReturn();
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
     }
 
     void MotionGenerator::generateMotionsForOneOperation(OperationStack &operationStack, Move &logMotionStack, Move &runningMotionStack, bool guiInput /*= false */)

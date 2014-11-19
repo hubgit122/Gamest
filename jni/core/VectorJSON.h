@@ -33,7 +33,7 @@ namespace CIG
 
             inline virtual ~VectorJSON() {}
 
-            vector::const_iterator find(const T &val)cosnt
+            typename vector<T>::const_iterator find(const T &val)const
             {
                 for(vector::const_iterator it = this->begin(); it != this->end(); ++it)
                 {

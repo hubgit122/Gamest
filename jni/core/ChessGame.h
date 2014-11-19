@@ -6,7 +6,6 @@
 #include "Array.h"
 #include "Object.h"
 #include "Chessboard.h"
-#include "GameHead.h"
 #include "Stack.h"
 #include "Game.h"
 
@@ -21,6 +20,7 @@ namespace CIG
 
             ChessGame &operator=(const ChessGame &g);
 
+            ChessGameConfig config;
             Chessboard chessBoard;
             Stack<Move, INT_BOARD_HISTORY_STACK_SIZE, 0> history;
     };

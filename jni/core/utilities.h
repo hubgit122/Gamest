@@ -18,7 +18,7 @@
 #include "MyJSONNode.h"
 #include "types.h"
 #include "../libjson/libjson.h"
-#include "C:\Program Files\Java\jdk1.8.0_11\include\jni.h"
+//#include "C:\Program Files\Java\jdk1.8.0_11\include\jni.h"
 
 using namespace std;
 using namespace CIG;

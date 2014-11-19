@@ -59,7 +59,7 @@ namespace CIG
     }
 
     template <class T, unsigned short INI_DEPTH, unsigned short DEPTH_INCRE>
-    string CIG::Array<T, INI_DEPTH, DEPTH_INCRE>::toJSON()
+    string CIG::Array<T, INI_DEPTH, DEPTH_INCRE>::toJSON() const
     {
         ostringstream oss;
         oss << "[";

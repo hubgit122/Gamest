@@ -10,12 +10,12 @@ namespace CIG
     class MotionGenerator
     {
         public:
-            MotionGenerator(Chessboard &cb) : chessboard(cb), config(cb.game.config) {}
+            MotionGenerator(Chessboard &cb);
             virtual ~MotionGenerator() {};
 
             MoveStack moveStack;
             Chessboard &chessboard;
-            ChessGameConfig &config;
+            const ChessGameConfig &config;
 
             virtual void generateMoves(bool guiInput = false);
             virtual bool generateRecursively(Move &logMotionStack, OperationStack &operationStack, bool guiInput = false);

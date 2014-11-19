@@ -25,7 +25,7 @@ namespace CIG
             inline virtual string toJSON()const
             {
                 ostringstream oss;
-                oss << JSON_OBJECT(JSON_KEY(idGraph) << (const Graph &)*this JSON_COMMA JSON_KEYVALUE(names));
+                oss << JSON_OBJECT( << (const Graph &)(*this) JSON_COMMA JSON_KEYVALUE(names));
                 return oss.str();
             }
 
